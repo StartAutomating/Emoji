@@ -54,4 +54,9 @@ $this.'.EmojiCache'
       </ScriptMethod>
     </Members>
   </Type>
+  <Type>
+    <Name>Emoji.Symbol</Name>
+    <Members>
+    </Members>
+  </Type>
 </Types>
