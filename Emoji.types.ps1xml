@@ -57,6 +57,19 @@ $this.'.EmojiCache'
   <Type>
     <Name>Emoji.Symbol</Name>
     <Members>
+      <ScriptProperty>
+        <Name>Number</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Gets the Emoji Number
+.DESCRIPTION
+    Gets the Emoji's number, as an integer.
+#&gt;
+"0x$($this.Hex)" -as [int]
+
+                    </GetScriptBlock>
+      </ScriptProperty>
     </Members>
   </Type>
 </Types>
