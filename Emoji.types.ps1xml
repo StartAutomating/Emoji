@@ -3,6 +3,10 @@
   <Type>
     <Name>Emoji</Name>
     <Members>
+      <AliasProperty>
+        <Name>Find</Name>
+        <ReferencedMemberName>Search</ReferencedMemberName>
+      </AliasProperty>
       <ScriptMethod>
         <Name>Import</Name>
         <Script>
@@ -50,6 +54,41 @@ if ((-not $this.'.EmojiCache') -or $Force) {
     }
 }
 $this.'.EmojiCache'
+                    </Script>
+      </ScriptMethod>
+      <ScriptMethod>
+        <Name>Search</Name>
+        <Script>
+                        &lt;#
+.SYNOPSIS
+    Find Emoji
+.DESCRIPTION
+    Searches for Emoji
+#&gt;
+param(
+# The search pattern
+[string]
+$Pattern,
+
+# If set, will search using the -like operator.  By default, will search using -match
+[switch]
+$Like
+)
+
+if (-not $this) {
+    $this = Get-Module Emoji
+}
+
+foreach ($namedEmoji in $this.Import()) {
+    if ($like) {
+        if ($namedEmoji.Name -like $Pattern) {
+            $namedEmoji
+        }
+    } elseif ($namedEmoji.Name -match $Pattern) {
+        $namedEmoji
+    }
+}
+
                     </Script>
       </ScriptMethod>
     </Members>
