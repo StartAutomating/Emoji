@@ -57,6 +57,10 @@ $this.'.EmojiCache'
   <Type>
     <Name>Emoji.Symbol</Name>
     <Members>
+      <AliasProperty>
+        <Name>Emoji</Name>
+        <ReferencedMemberName>String</ReferencedMemberName>
+      </AliasProperty>
       <ScriptProperty>
         <Name>Number</Name>
         <GetScriptBlock>
