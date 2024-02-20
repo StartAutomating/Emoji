@@ -1,0 +1,2 @@
+# Emoji
+⟩⚡PowerShell Emoji 😎😉😍🥰🤔😟😨
