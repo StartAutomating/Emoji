@@ -4,8 +4,8 @@
     
     Description = '⟩⚡PowerShell Emoji 😎😉😍🥰🤔😟😨'
 
-#    FormatsToProcess = 'Emoji.format.ps1xml'
-#    TypesToProcess = 'Emoji.types.ps1xml'
+    FormatsToProcess = 'Emoji.format.ps1xml'
+    TypesToProcess = 'Emoji.types.ps1xml'
 
 
     PrivateData = @{
