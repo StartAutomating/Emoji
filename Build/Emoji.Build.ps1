@@ -38,7 +38,7 @@ if (-not (Test-Path $DataPath)) {
 $allNamedEmojiPath = (Join-Path $DataPath AllNamedEmoji.csv)
 @(foreach ($uniquelyNamedEmoji in $allUniquelyNamedEmoji) {
     $emojiName, $emojiHex = $uniquelyNamedEmoji.Name, "$($uniquelyNamedEmoji.Group[0].HexCode)".Trim()
-
+    if ($emojiHex -match '\..') { continue }
     $emojiString = try {
         $ExecutionContext.InvokeCommand.ExpandString(('`u{',$emojiHex,'}' -join ''))
     } catch {
