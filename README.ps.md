@@ -3,7 +3,7 @@
 
 Emoji is a little PowerShell module to help you work with Emoji.
 
-It is built from the Unicode Character Dataset, which includes ```.>{@(Import-Emoji).Length}<.``` named symbols.
+It is built from the Unicode Character Dataset, which includes ```.>{@(Import-Csv (Join-Path "$pwd" Data | Join-Path -ChildPath "AllNamedEmoji.csv")).Length}<.``` named symbols.
 
 ## Installing and Importing
 
