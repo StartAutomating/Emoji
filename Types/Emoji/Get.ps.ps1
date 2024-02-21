@@ -35,7 +35,15 @@ $Number,
 [vbn()]
 [Alias('AllBlock','AllBlocks','ListBlock','ListBlocks')]
 [switch]
-$Block
+$Block,
+
+[vbn()]
+[int]
+$First,
+
+[vbn()]
+[int]
+$Skip
 )
 
 $allNamedEmoji = Import-Emoji
@@ -46,11 +54,30 @@ if ($Number) {
     $allNamedEmoji = $allNamedEmoji | Where-Object Number -In $Number
 }
 
+$selectSplat = @{}
+if ($first -or $Skip) {
+    if ($Skip) {
+        $selectSplat.Skip = $PSCmdlet.PagingParameters.Skip
+    }
+    if ($First) {
+        $selectSplat.First = $PSCmdlet.PagingParameters.First
+    }
+}
+
 if ($name -or $number) {
-    $allNamedEmoji
+    if ($selectSplat.Count) {
+        $allNamedEmoji  | Select-Object @selectSplat
+    } else {
+        $allNamedEmoji
+    }
+    
 } 
 elseif ($Block) {
-    $emoji.Blocks.Values
+    if ($selectSplat.Count) {
+        $emoji.Blocks.Values | Select-Object @selectSplat
+    } else {
+        $emoji.Blocks.Values
+    }    
 }
 else {
     $Emoji
