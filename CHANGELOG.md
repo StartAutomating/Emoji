@@ -1,24 +1,6 @@
-@{
-    ModuleVersion = '0.1'
-    RootModule = 'Emoji.psm1'
-    
-    Description = '⟩⚡PowerShell Emoji 😎😉😍🥰🤔😟'
+## Emoji 0.1:
 
-    FormatsToProcess = 'Emoji.format.ps1xml'
-    TypesToProcess = 'Emoji.types.ps1xml'
-
-    Guid = 'a82424bc-4a28-4151-8b9e-79289775c29b'
-    CompanyName = 'Start-Automating'
-    Author = 'James Brundage'
-    Copyright = '2024 Start-Automating'
-
-    PrivateData = @{
-        PSData = @{
-            ProjectURI = 'https://github.com/StartAutomating/Emoji'
-            LicenseURI = 'https://github.com/StartAutomating/blob/main/LICENSE'
-            Tags = 'Emoji', 'PowerShell'
-            ReleaseNotes = @'
-Initial Release of Emoji:
+### Initial Release of Emoji
 
 * Emoji is PowerShell Module for Emoji (#1)
 * It is built from the [Unicode Character Dataset](https://unicode.org/Public/UCD/latest/ucd/), using [PipeScript](https://github.com/StartAutomating/PipeScript) (#2)
@@ -40,8 +22,3 @@ Initial Release of Emoji:
 Full history in [CHANGELOG](https://github.com/StartAutomating/Emoji/blob/main/CHANGELOG.md)
 
 Like it?  Star It!  Love it?  Support It!
-'@
-        }
-        Recommends = 'Posh','PipeScript','EZOut'
-    }
-}
