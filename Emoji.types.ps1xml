@@ -92,22 +92,9 @@ if ($Number) {
     $allNamedEmoji = $allNamedEmoji | Where-Object Number -In $Number
 }
 
-$selectSplat = @{}
-if (
-    ($PSCmdlet.PagingParameters.Skip -as [int]) -or 
-    ($PSCmdlet.PagingParameters.First -as [int])
-) {
-    if ($PSCmdlet.PagingParameters.Skip) {
-        $selectSplat.Skip = $PSCmdlet.PagingParameters.Skip
-    }
-    
-    if ($PSCmdlet.PagingParameters.First) {
-        $selectSplat.First = $PSCmdlet.PagingParameters.First
-    }
-}
-
+$selectSplat = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
 if ($name -or $number) {
-    if ($selectSplat.Count) {
+    if ($selectSplat.Count -gt 1) {
         $allNamedEmoji  | Select-Object @selectSplat
     } else {
         $allNamedEmoji
@@ -123,6 +110,38 @@ elseif ($Block) {
 else {
     $Emoji
 }
+
+
+                    </Script>
+      </ScriptMethod>
+      <ScriptMethod>
+        <Name>GetPagingParameters</Name>
+        <Script>
+                        &lt;#
+.SYNOPSIS
+    Gets the paging parameters
+.DESCRIPTION
+    Gets the paging parameters as a Dictionary for Select-Object.
+.LINK
+    Select-Object
+#&gt;
+param(
+$Parameter
+)
+
+$SelectParameters = [Ordered]@{}
+
+if ($Parameter.First -as [int]) {
+    $SelectParameters.First = $Parameter.First -as [int]
+}
+
+if ($Parameter.Skip -as [int]) {
+    $SelectParameters.Skip = $Parameter.Skip -as [int]
+}
+
+return $SelectParameters
+
+
 
 
                     </Script>
