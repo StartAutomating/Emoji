@@ -6,6 +6,7 @@
 
     If neither name or number is provided, returns the Emoji module.
 #>
+[CmdletBinding(SupportsPaging)]
 param(
 # One or more specific Emoji names
 [ArgumentCompleter({
@@ -51,7 +52,7 @@ if ($PSCmdlet.PagingParameters.Skip -or $PSCmdlet.PagingParameters.First) {
     if ($PSCmdlet.PagingParameters.Skip) {
         $selectSplat.Skip = $PSCmdlet.PagingParameters.Skip
     }
-    if ($PSCmdlet.PagingParameters.First) {
+    elseif ($PSCmdlet.PagingParameters.First) {
         $selectSplat.First = $PSCmdlet.PagingParameters.First
     }
 }
