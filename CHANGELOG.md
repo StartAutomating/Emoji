@@ -1,3 +1,20 @@
+## Emoji 0.1.1:
+
+### More Emoji
+
+* Find/Search-Emoji improvements:
+  * Supporting Multiple -Patterns (#15 ) (thanks @I-Am-Jakoby !)  
+  * Supporting -Word (#16)
+* Get-Emoji:
+  * Get-Emoji -Block (#23)
+  * Get-Emoji -First/-Skip (#26)
+* Emoji Block Support:
+  * `Emoji.get_Blocks` (#17)  
+  * Emoji.Block pseudotype (#18, #19, #20, #21, #22)
+* Added Logo (#28)
+  
+---
+
 ## Emoji 0.1:
 
 ### Initial Release of Emoji
