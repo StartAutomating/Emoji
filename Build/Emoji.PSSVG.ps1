@@ -31,7 +31,7 @@ svg -content $(
     ) -ViewBox 100, 100
 
 
-    svg.use -Href '#psChevron' -X -50% -Y 25% @commonParameters -Height 49% -Opacity .9
+    svg.use -Href '#psChevron' -X -45% -Y 37.5% @commonParameters -Height 25% -Opacity .9
     svg.text -Text 'emoji' -X 50% -Y 50% -FontSize 4em -FontFamily sans-serif @commonParameters -DominantBaseline 'middle' -TextAnchor 'middle' -Style "font-family:'$fontName'"
     svg.text -Text '😎😉😍🥰🤔😟' -X 50% -Y 80% -FontSize .5em @commonParameters -DominantBaseline 'middle' -TextAnchor 'middle'
 ) -ViewBox 0, 0, 200, 100 -OutputPath $(
