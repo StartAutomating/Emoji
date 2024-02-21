@@ -11,7 +11,7 @@ function Emoji {
         'Find-Emoji', 'Search-Emoji',
         'Import-Emoji', 'Export-Emoji'
     )]
-    [CmdletBinding(PositionalBinding=$false)]
+    [CmdletBinding(PositionalBinding=$false,SupportsShouldProcess,SupportsPaging)]
     param()
 
     dynamicParam {
