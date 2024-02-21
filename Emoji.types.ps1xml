@@ -250,6 +250,17 @@ $this.'.Blocks'
     </Members>
   </Type>
   <Type>
+    <Name>Emoji.Block</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>Start</Name>
+        <GetScriptBlock>
+                        "0x$($this.RangeStart)" -as [int]
+                    </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
     <Name>Emoji.Symbol</Name>
     <Members>
       <AliasProperty>
