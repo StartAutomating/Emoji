@@ -48,11 +48,15 @@ if ($Number) {
 }
 
 $selectSplat = @{}
-if ($PSCmdlet.PagingParameters.Skip -or $PSCmdlet.PagingParameters.First) {
+if (
+    ($PSCmdlet.PagingParameters.Skip -as [int]) -or 
+    ($PSCmdlet.PagingParameters.First -as [int])
+) {
     if ($PSCmdlet.PagingParameters.Skip) {
         $selectSplat.Skip = $PSCmdlet.PagingParameters.Skip
     }
-    elseif ($PSCmdlet.PagingParameters.First) {
+    
+    if ($PSCmdlet.PagingParameters.First) {
         $selectSplat.First = $PSCmdlet.PagingParameters.First
     }
 }
@@ -63,7 +67,6 @@ if ($name -or $number) {
     } else {
         $allNamedEmoji
     }
-    
 } 
 elseif ($Block) {
     if ($selectSplat.Count) {
