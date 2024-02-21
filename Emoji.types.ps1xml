@@ -265,6 +265,19 @@ $this.'.Blocks'
                     </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
+        <Name>Length</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Get an Emoji Block's Length
+.DESCRIPTION
+    Gets the number of characters in an Emoji Block's range.
+#&gt;
+param()
+$this.End - $this.Start
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
         <Name>Start</Name>
         <GetScriptBlock>
                         "0x$($this.RangeStart)" -as [int]
