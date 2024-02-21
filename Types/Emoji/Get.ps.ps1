@@ -7,6 +7,7 @@
     If neither name or number is provided, returns the Emoji module.
 #>
 param(
+# One or more specific Emoji names
 [ArgumentCompleter({
     param ( $commandName,$parameterName,$wordToComplete,$commandAst, $fakeBoundParameters )
         
@@ -24,10 +25,17 @@ param(
 [string[]]
 $Name,
 
+# One or more specific emoji numbers
 [vbn()]
 [Alias('Range')]
 [int[]]
-$Number
+$Number,
+
+# If set, will get Emoji blocks
+[vbn()]
+[Alias('AllBlock','AllBlocks','ListBlock','ListBlocks')]
+[switch]
+$Block
 )
 
 $allNamedEmoji = Import-Emoji
@@ -40,6 +48,10 @@ if ($Number) {
 
 if ($name -or $number) {
     $allNamedEmoji
-} else {
+} 
+elseif ($Block) {
+    $emoji.Blocks
+}
+else {
     $Emoji
 }
