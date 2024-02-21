@@ -11,7 +11,7 @@ function Emoji
         'Find-Emoji', 'Search-Emoji',
         'Import-Emoji', 'Export-Emoji'
     )]
-    [CmdletBinding(PositionalBinding=$false)]
+    [CmdletBinding(PositionalBinding=$false,SupportsShouldProcess,SupportsPaging)]
     param()
 
     dynamicParam {
@@ -76,6 +76,23 @@ function Emoji
             $typeDataForVerb = $nounTypeData.Members[$typeDataForVerb.ReferencedMemberName]
         }
         if (-not $typeDataForVerb) { return }
-        & $typeDataForVerb.Script @PSBoundParameters
+        $parametersForScript = [Ordered]@{} + $PSBoundParameters
+        $function:InnerCommand = $typeDataForVerb.Script
+        $innerCommandMetadata = $ExecutionContext.SessionState.InvokeCommand.GetCommand('InnerCommand','Function') -as 
+            [Management.Automation.CommandMetadata]
+        foreach ($parameterName in @($parametersForScript.Keys)) {
+            if (-not $innerCommandMetadata.Parameters[$parameterName]) {
+                $parametersForScript.Remove($parameterName)
+            }
+        }
+        if ($innerCommandMetadata.SupportsPaging) {
+            if ($PSBoundParameters.First) {
+                $parametersForScript.First = $PSBoundParameters.First
+            }
+            if ($PSBoundParameters.Skip) {
+                $parametersForScript.Skip = $PSBoundParameters.Skip
+            }
+        }
+        & $typeDataForVerb.Script @parametersForScript
     }
 }

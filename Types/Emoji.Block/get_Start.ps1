@@ -1,0 +1,1 @@
+"0x$($this.RangeStart)" -as [int]

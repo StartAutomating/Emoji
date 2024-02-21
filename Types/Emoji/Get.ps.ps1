@@ -6,7 +6,9 @@
 
     If neither name or number is provided, returns the Emoji module.
 #>
+[CmdletBinding(SupportsPaging)]
 param(
+# One or more specific Emoji names
 [ArgumentCompleter({
     param ( $commandName,$parameterName,$wordToComplete,$commandAst, $fakeBoundParameters )
         
@@ -24,10 +26,17 @@ param(
 [string[]]
 $Name,
 
+# One or more specific emoji numbers
 [vbn()]
 [Alias('Range')]
 [int[]]
-$Number
+$Number,
+
+# If set, will get Emoji blocks
+[vbn()]
+[Alias('AllBlock','AllBlocks','ListBlock','ListBlocks')]
+[switch]
+$Block
 )
 
 $allNamedEmoji = Import-Emoji
@@ -38,8 +47,31 @@ if ($Number) {
     $allNamedEmoji = $allNamedEmoji | Where-Object Number -In $Number
 }
 
+$selectSplat = @{}
+if ($PSCmdlet.PagingParameters.Skip -or $PSCmdlet.PagingParameters.First) {
+    if ($PSCmdlet.PagingParameters.Skip) {
+        $selectSplat.Skip = $PSCmdlet.PagingParameters.Skip
+    }
+    elseif ($PSCmdlet.PagingParameters.First) {
+        $selectSplat.First = $PSCmdlet.PagingParameters.First
+    }
+}
+
 if ($name -or $number) {
-    $allNamedEmoji
-} else {
+    if ($selectSplat.Count) {
+        $allNamedEmoji  | Select-Object @selectSplat
+    } else {
+        $allNamedEmoji
+    }
+    
+} 
+elseif ($Block) {
+    if ($selectSplat.Count) {
+        $emoji.Blocks.Values | Select-Object @selectSplat
+    } else {
+        $emoji.Blocks.Values
+    }    
+}
+else {
     $Emoji
 }

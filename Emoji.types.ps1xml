@@ -51,7 +51,9 @@ if ($this.'.EmojiCache') {
 
     If neither name or number is provided, returns the Emoji module.
 #&gt;
+[CmdletBinding(SupportsPaging)]
 param(
+# One or more specific Emoji names
 [ArgumentCompleter({
     param ( $commandName,$parameterName,$wordToComplete,$commandAst, $fakeBoundParameters )
         
@@ -69,10 +71,17 @@ param(
 [string[]]
 $Name,
 
+# One or more specific emoji numbers
 [Parameter(ValueFromPipelineByPropertyName)]
 [Alias('Range')]
 [int[]]
-$Number
+$Number,
+
+# If set, will get Emoji blocks
+[Parameter(ValueFromPipelineByPropertyName)]
+[Alias('AllBlock','AllBlocks','ListBlock','ListBlocks')]
+[switch]
+$Block
 )
 
 $allNamedEmoji = Import-Emoji
@@ -83,9 +92,32 @@ if ($Number) {
     $allNamedEmoji = $allNamedEmoji | Where-Object Number -In $Number
 }
 
+$selectSplat = @{}
+if ($PSCmdlet.PagingParameters.Skip -or $PSCmdlet.PagingParameters.First) {
+    if ($PSCmdlet.PagingParameters.Skip) {
+        $selectSplat.Skip = $PSCmdlet.PagingParameters.Skip
+    }
+    elseif ($PSCmdlet.PagingParameters.First) {
+        $selectSplat.First = $PSCmdlet.PagingParameters.First
+    }
+}
+
 if ($name -or $number) {
-    $allNamedEmoji
-} else {
+    if ($selectSplat.Count) {
+        $allNamedEmoji  | Select-Object @selectSplat
+    } else {
+        $allNamedEmoji
+    }
+    
+} 
+elseif ($Block) {
+    if ($selectSplat.Count) {
+        $emoji.Blocks.Values | Select-Object @selectSplat
+    } else {
+        $emoji.Blocks.Values
+    }    
+}
+else {
     $Emoji
 }
 
@@ -151,27 +183,38 @@ $this.'.EmojiCache'
     Searches for Emoji
 #&gt;
 param(
-# The search pattern
-[string]
+# One or more search patterns
+[string[]]
 $Pattern,
 
 # If set, will search using the -like operator.  By default, will search using -match
 [switch]
-$Like
+$Like,
+
+# If set, will look for an exact word.  This is not compatible with -Like.
+[switch]
+$Word
 )
 
 if (-not $this) {
     $this = Get-Module Emoji
 }
 
-foreach ($namedEmoji in $this.Import()) {
-    if ($like) {
-        if ($namedEmoji.Name -like $Pattern) {
+if ($word) {
+    $like = $false
+    $Pattern = $Pattern -replace '^', '(?&lt;=(?&gt;^|\s))' -replace '$', '(?=(?&gt;$|\s))'
+}
+
+foreach ($condition in $Pattern) {
+    foreach ($namedEmoji in $this.Import()) {
+        if ($like) {            
+            if ($namedEmoji.Name -like $condition) {
+                $namedEmoji
+            }
+        } elseif ($namedEmoji.Name -match $condition) {
             $namedEmoji
         }
-    } elseif ($namedEmoji.Name -match $Pattern) {
-        $namedEmoji
-    }
+    }    
 }
 
                     </Script>
@@ -219,6 +262,72 @@ $dynamicModule | Import-Module -Global -Force -DisableNameChecking -PassThru
 
                     </Script>
       </ScriptMethod>
+      <ScriptProperty>
+        <Name>Blocks</Name>
+        <GetScriptBlock>
+                        if (-not $this.'.Blocks') {
+    $theseBlocks = [Ordered]@{}
+    $allEmojiBlocks = Get-Module Emoji | Split-Path | Join-Path -ChildPath "Data" | Join-Path -ChildPath "AllEmojiBlocks.csv" | Import-Csv
+    foreach ($emojiBlock in $allEmojiBlocks) {
+        $emojiBlock.pstypenames.clear()
+        $emojiBlock.pstypenames.add('Emoji.Block')
+        $theseBlocks[$emojiBlock.BlockName] = $emojiBlock
+    }
+    Add-Member -InputObject $this -MemberType NoteProperty -Force -Name ".Blocks" -Value $theseBlocks
+}
+
+$this.'.Blocks'
+                    </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Emoji.Block</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>End</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Get an Emoji Block's End    
+.DESCRIPTION
+    Gets the end of an Emoji Block's range.
+#&gt;
+"0x$($this.RangeEnd)" -as [int]
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>Length</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Get an Emoji Block's Length
+.DESCRIPTION
+    Gets the number of characters in an Emoji Block's range.
+#&gt;
+param()
+$this.End - $this.Start
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>Range</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Get an Emoji Block's Range    
+.DESCRIPTION
+    Gets the range of an Emoji Block.
+#&gt;
+param()
+($this.Start)..($this.End) -as [int[]]
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>Start</Name>
+        <GetScriptBlock>
+                        "0x$($this.RangeStart)" -as [int]
+                    </GetScriptBlock>
+      </ScriptProperty>
     </Members>
   </Type>
   <Type>
