@@ -2,6 +2,43 @@
 <Configuration>
   <ViewDefinitions>
     <View>
+      <Name>Emoji.Block</Name>
+      <ViewSelectedBy>
+        <TypeName>Emoji.Block</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Alignment>Right</Alignment>
+            <Width>8</Width>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Alignment>Center</Alignment>
+            <Width>8</Width>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Alignment>Left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Start</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>BlockName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>End</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
       <Name>Emoji.Symbol</Name>
       <ViewSelectedBy>
         <TypeName>Emoji.Symbol</TypeName>
