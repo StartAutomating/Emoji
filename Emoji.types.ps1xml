@@ -278,6 +278,19 @@ $this.End - $this.Start
                     </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
+        <Name>Range</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Get an Emoji Block's Range    
+.DESCRIPTION
+    Gets the range of an Emoji Block.
+#&gt;
+param()
+($this.Start)..($this.End) -as [int[]]
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
         <Name>Start</Name>
         <GetScriptBlock>
                         "0x$($this.RangeStart)" -as [int]
