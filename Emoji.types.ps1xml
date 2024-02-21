@@ -8,6 +8,39 @@
         <ReferencedMemberName>Search</ReferencedMemberName>
       </AliasProperty>
       <ScriptMethod>
+        <Name>Export</Name>
+        <Script>
+                        &lt;#
+.SYNOPSIS
+    Exports Emoji
+.DESCRIPTION
+    Exports All Named Emoji.
+#&gt;
+param(
+# The export path.
+[string]
+$EmojiPath,
+
+# If set, will overwrite any file at the exportPath
+[switch]
+$Force
+)
+
+
+if (-not $this) {
+    $this = Get-Module Emoji
+}
+if ($this.'.EmojiCache') {
+    $exporterNoun = @($EmojiPath -split '[\\/]')[-1] -replace '.+\.'
+    $exporters = $ExecutionContext.SessionState.InvokeCommand.GetCommands("Export-$exporterNoun", 'Function,Cmdlet,Alias', $true)
+    if ($exporters -and $exporters.Count -eq 1) {        
+        $this.'.EmojiCache' | &amp; $exporters $EmojiPath
+        Get-Item $EmojiPath
+    }
+}
+                    </Script>
+      </ScriptMethod>
+      <ScriptMethod>
         <Name>Get</Name>
         <Script>
                         &lt;#
