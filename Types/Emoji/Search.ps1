@@ -5,8 +5,8 @@
     Searches for Emoji
 #>
 param(
-# The search pattern
-[string]
+# One or more search patterns
+[string[]]
 $Pattern,
 
 # If set, will search using the -like operator.  By default, will search using -match
@@ -18,12 +18,15 @@ if (-not $this) {
     $this = Get-Module Emoji
 }
 
-foreach ($namedEmoji in $this.Import()) {
-    if ($like) {
-        if ($namedEmoji.Name -like $Pattern) {
+foreach ($condition in $Pattern) {
+    foreach ($namedEmoji in $this.Import()) {
+        if ($like) {
+            
+            if ($namedEmoji.Name -like $condition) {
+                $namedEmoji
+            }
+        } elseif ($namedEmoji.Name -match $condition) {
             $namedEmoji
         }
-    } elseif ($namedEmoji.Name -match $Pattern) {
-        $namedEmoji
-    }
+    }    
 }
