@@ -253,6 +253,18 @@ $this.'.Blocks'
     <Name>Emoji.Block</Name>
     <Members>
       <ScriptProperty>
+        <Name>End</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Get an Emoji Block's End    
+.DESCRIPTION
+    Gets the end of an Emoji Block's range.
+#&gt;
+"0x$($this.RangeEnd)" -as [int]
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
         <Name>Start</Name>
         <GetScriptBlock>
                         "0x$($this.RangeStart)" -as [int]
