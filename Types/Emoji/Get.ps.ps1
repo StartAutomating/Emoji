@@ -35,15 +35,7 @@ $Number,
 [vbn()]
 [Alias('AllBlock','AllBlocks','ListBlock','ListBlocks')]
 [switch]
-$Block,
-
-[vbn()]
-[int]
-$First,
-
-[vbn()]
-[int]
-$Skip
+$Block
 )
 
 $allNamedEmoji = Import-Emoji
@@ -55,11 +47,11 @@ if ($Number) {
 }
 
 $selectSplat = @{}
-if ($first -or $Skip) {
-    if ($Skip) {
+if ($PSCmdlet.PagingParameters.Skip -or $PSCmdlet.PagingParameters.First) {
+    if ($PSCmdlet.PagingParameters.Skip) {
         $selectSplat.Skip = $PSCmdlet.PagingParameters.Skip
     }
-    if ($First) {
+    if ($PSCmdlet.PagingParameters.First) {
         $selectSplat.First = $PSCmdlet.PagingParameters.First
     }
 }
