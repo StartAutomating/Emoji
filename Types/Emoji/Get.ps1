@@ -50,7 +50,7 @@ if ($name -or $number) {
     $allNamedEmoji
 } 
 elseif ($Block) {
-    $emoji.Blocks
+    $emoji.Blocks.Values
 }
 else {
     $Emoji
