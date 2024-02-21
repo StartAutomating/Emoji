@@ -85,6 +85,14 @@ function Emoji {
                 $parametersForScript.Remove($parameterName)
             }
         }
+        if ($innerCommandMetadata.SupportsPaging) {
+            if ($PSBoundParameters.First) {
+                $parametersForScript.First = $PSBoundParameters.First
+            }
+            if ($PSBoundParameters.Skip) {
+                $parametersForScript.Skip = $PSBoundParameters.Skip
+            }
+        }
         & $typeDataForVerb.Script @parametersForScript
     }
 
