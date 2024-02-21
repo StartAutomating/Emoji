@@ -11,11 +11,9 @@
         <TableHeaders>
           <TableColumnHeader>
             <Alignment>Right</Alignment>
-            <Width>8</Width>
           </TableColumnHeader>
           <TableColumnHeader>
             <Alignment>Center</Alignment>
-            <Width>8</Width>
           </TableColumnHeader>
           <TableColumnHeader>
             <Alignment>Left</Alignment>
