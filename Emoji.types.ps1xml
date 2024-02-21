@@ -1,0 +1,246 @@
+<!-- Generated with EZOut 2.0.4: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
+<Types>
+  <Type>
+    <Name>Emoji</Name>
+    <Members>
+      <AliasProperty>
+        <Name>Find</Name>
+        <ReferencedMemberName>Search</ReferencedMemberName>
+      </AliasProperty>
+      <ScriptMethod>
+        <Name>Export</Name>
+        <Script>
+                        &lt;#
+.SYNOPSIS
+    Exports Emoji
+.DESCRIPTION
+    Exports All Named Emoji.
+#&gt;
+param(
+# The export path.
+[string]
+$EmojiPath,
+
+# If set, will overwrite any file at the exportPath
+[switch]
+$Force
+)
+
+
+if (-not $this) {
+    $this = Get-Module Emoji
+}
+if ($this.'.EmojiCache') {
+    $exporterNoun = @($EmojiPath -split '[\\/]')[-1] -replace '.+\.'
+    $exporters = $ExecutionContext.SessionState.InvokeCommand.GetCommands("Export-$exporterNoun", 'Function,Cmdlet,Alias', $true)
+    if ($exporters -and $exporters.Count -eq 1) {        
+        $this.'.EmojiCache' | &amp; $exporters $EmojiPath
+        Get-Item $EmojiPath
+    }
+}
+                    </Script>
+      </ScriptMethod>
+      <ScriptMethod>
+        <Name>Get</Name>
+        <Script>
+                        &lt;#
+.SYNOPSIS
+    Gets one or more Emoji
+.DESCRIPTION
+    Gets Emoji by exact name or number.
+
+    If neither name or number is provided, returns the Emoji module.
+#&gt;
+param(
+[ArgumentCompleter({
+    param ( $commandName,$parameterName,$wordToComplete,$commandAst, $fakeBoundParameters )
+        
+    if (-not $script:EmojiNames) {
+        $script:EmojiNames = @(Import-Emoji| Select-Object -ExpandProperty Name)
+    }
+    if ($wordToComplete) {            
+        $toComplete = $wordToComplete -replace "^'" -replace "'$"
+        return @($script:emojiNames -like "$toComplete*" -replace '^', "'" -replace '$',"'")
+    } else {            
+        return @($script:emojiNames -replace '^', "'" -replace '$',"'")
+    }
+})]
+[Alias('String')]
+[string[]]
+$Name,
+
+[Parameter(ValueFromPipelineByPropertyName)]
+[Alias('Range')]
+[int[]]
+$Number
+)
+
+$allNamedEmoji = Import-Emoji
+if ($Name) {
+    $allNamedEmoji = $allNamedEmoji | Where-Object Name -In $Name
+}
+if ($Number) {
+    $allNamedEmoji = $allNamedEmoji | Where-Object Number -In $Number
+}
+
+if ($name -or $number) {
+    $allNamedEmoji
+} else {
+    $Emoji
+}
+
+
+                    </Script>
+      </ScriptMethod>
+      <ScriptMethod>
+        <Name>Import</Name>
+        <Script>
+                        &lt;#
+.SYNOPSIS
+    Imports Emoji
+.DESCRIPTION
+    Imports all named Emoji from an -EmojiPath.
+
+    If the -EmojiPath is not provided, it will import it's local copy
+#&gt;
+param(
+# The path to the emoji data
+[string]
+$EmojiPath,
+
+# If set, will overwrite existing data.
+[switch]
+$Force
+)
+
+
+if (-not $this) {
+    $this = Get-Module Emoji
+}
+if ((-not $this.'.EmojiCache') -or $Force) {
+    if (-not $EmojiPath) {
+        $EmojiPath = $this | 
+            Split-Path | 
+            Join-Path -ChildPath Data | 
+            Join-Path -ChildPath "AllNamedEmoji.csv"
+    }
+    if (Test-Path $EmojiPath) {
+        $impoterNoun = @($EmojiPath -split '[\\/]')[-1] -replace '.+\.'
+        $importers = $ExecutionContext.SessionState.InvokeCommand.GetCommands("Import-$impoterNoun", 'Function,Cmdlet,Alias', $true)
+        if ($importers -and $importers.Count -eq 1) {
+            $importedEmojiList = &amp; $importers $EmojiPath
+            if ($importedEmojiList.Length -gt 1 -and $importedEmojiList[0].Hex -match '[0-9a-f]{4,}') {                                
+                Add-Member -InputObject $this -MemberType NoteProperty -Force -Name ".EmojiCache" -Value @(foreach ($importedEmoji in $importedEmojiList) {
+                    $importedEmoji.pstypenames.insert(0,'Emoji.Symbol')
+                    $importedEmoji
+                })
+            }
+        }
+    }
+}
+$this.'.EmojiCache'
+                    </Script>
+      </ScriptMethod>
+      <ScriptMethod>
+        <Name>Search</Name>
+        <Script>
+                        &lt;#
+.SYNOPSIS
+    Find Emoji
+.DESCRIPTION
+    Searches for Emoji
+#&gt;
+param(
+# The search pattern
+[string]
+$Pattern,
+
+# If set, will search using the -like operator.  By default, will search using -match
+[switch]
+$Like
+)
+
+if (-not $this) {
+    $this = Get-Module Emoji
+}
+
+foreach ($namedEmoji in $this.Import()) {
+    if ($like) {
+        if ($namedEmoji.Name -like $Pattern) {
+            $namedEmoji
+        }
+    } elseif ($namedEmoji.Name -match $Pattern) {
+        $namedEmoji
+    }
+}
+
+                    </Script>
+      </ScriptMethod>
+      <ScriptMethod>
+        <Name>Set</Name>
+        <Script>
+                        param(
+[Parameter(ValueFromPipelineByPropertyName)]
+[string[]]
+$EmojiSequence,
+
+[PSObject]
+$Value
+)
+
+$joinedSequence = $EmojiSequence -join ''
+
+$dynamicModule = 
+    if ($joinedSequence -and $value -is [ScriptBlock]) {        
+        New-Module -Name $joinedSequence -ScriptBlock ([ScriptBlock]::Create(
+            "function $JoinedSequence {
+                . ${$JoinedSequence}   
+            }
+
+            `${$JoinedSequence} = `$args[0]
+
+            Export-ModuleMember -Function * -Variable * -Alias *"
+        )) -ArgumentList $value    
+    } else {
+        New-Module -Name $joinedSequence -ScriptBlock ([ScriptBlock]::Create(
+            "`${$JoinedSequence} = `$args[0]
+            Export-ModuleMember -Function * -Variable * -Alias *"
+        )) -ArgumentList $value                
+    }
+
+Write-Warning $itemPath
+
+$dynamicModule | Import-Module -Global -Force -DisableNameChecking -PassThru
+# $global:ExecutionContext.SessionState.InvokeCommand.InvokeScript("`${$itemPath} = `$args[0]", $Value)
+
+
+    
+
+
+                    </Script>
+      </ScriptMethod>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Emoji.Symbol</Name>
+    <Members>
+      <AliasProperty>
+        <Name>Emoji</Name>
+        <ReferencedMemberName>String</ReferencedMemberName>
+      </AliasProperty>
+      <ScriptProperty>
+        <Name>Number</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Gets the Emoji Number
+.DESCRIPTION
+    Gets the Emoji's number, as an integer.
+#&gt;
+"0x$($this.Hex)" -as [int]
+
+                    </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+</Types>
