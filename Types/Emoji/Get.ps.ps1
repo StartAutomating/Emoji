@@ -52,11 +52,11 @@ if (
     ($PSCmdlet.PagingParameters.Skip -as [int]) -or 
     ($PSCmdlet.PagingParameters.First -as [int])
 ) {
-    if ($PSCmdlet.PagingParameters.Skip) {
+    if ($PSCmdlet.PagingParameters.Skip -as [int]) {
         $selectSplat.Skip = $PSCmdlet.PagingParameters.Skip
     }
     
-    if ($PSCmdlet.PagingParameters.First) {
+    if ($PSCmdlet.PagingParameters.First -as [int]) {
         $selectSplat.First = $PSCmdlet.PagingParameters.First
     }
 }
