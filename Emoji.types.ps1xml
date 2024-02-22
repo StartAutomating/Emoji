@@ -92,23 +92,13 @@ if ($Number) {
     $allNamedEmoji = $allNamedEmoji | Where-Object Number -In $Number
 }
 
-$selectSplat = @{}
-if ($PSCmdlet.PagingParameters.Skip -or $PSCmdlet.PagingParameters.First) {
-    if ($PSCmdlet.PagingParameters.Skip) {
-        $selectSplat.Skip = $PSCmdlet.PagingParameters.Skip
-    }
-    elseif ($PSCmdlet.PagingParameters.First) {
-        $selectSplat.First = $PSCmdlet.PagingParameters.First
-    }
-}
-
+$selectSplat = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
 if ($name -or $number) {
-    if ($selectSplat.Count) {
+    if ($selectSplat.Count -gt 1) {
         $allNamedEmoji  | Select-Object @selectSplat
     } else {
         $allNamedEmoji
     }
-    
 } 
 elseif ($Block) {
     if ($selectSplat.Count) {
@@ -120,6 +110,38 @@ elseif ($Block) {
 else {
     $Emoji
 }
+
+
+                    </Script>
+      </ScriptMethod>
+      <ScriptMethod>
+        <Name>GetPagingParameters</Name>
+        <Script>
+                        &lt;#
+.SYNOPSIS
+    Gets the paging parameters
+.DESCRIPTION
+    Gets the paging parameters as a Dictionary for Select-Object.
+.LINK
+    Select-Object
+#&gt;
+param(
+$Parameter
+)
+
+$SelectParameters = [Ordered]@{}
+
+if ($Parameter.First -as [int]) {
+    $SelectParameters.First = $Parameter.First -as [int]
+}
+
+if ($Parameter.Skip -as [int]) {
+    $SelectParameters.Skip = $Parameter.Skip -as [int]
+}
+
+return $SelectParameters
+
+
 
 
                     </Script>
@@ -182,16 +204,20 @@ $this.'.EmojiCache'
 .DESCRIPTION
     Searches for Emoji
 #&gt;
+[CmdletBinding(SupportsPaging)]
 param(
 # One or more search patterns
+[Parameter(ValueFromPipelineByPropertyName)]
 [string[]]
 $Pattern,
 
 # If set, will search using the -like operator.  By default, will search using -match
+[Parameter(ValueFromPipelineByPropertyName)]
 [switch]
 $Like,
 
 # If set, will look for an exact word.  This is not compatible with -Like.
+[Parameter(ValueFromPipelineByPropertyName)]
 [switch]
 $Word
 )
@@ -205,7 +231,9 @@ if ($word) {
     $Pattern = $Pattern -replace '^', '(?&lt;=(?&gt;^|\s))' -replace '$', '(?=(?&gt;$|\s))'
 }
 
-foreach ($condition in $Pattern) {
+$SelectParameters = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
+
+@(foreach ($condition in $Pattern) {
     foreach ($namedEmoji in $this.Import()) {
         if ($like) {            
             if ($namedEmoji.Name -like $condition) {
@@ -215,7 +243,8 @@ foreach ($condition in $Pattern) {
             $namedEmoji
         }
     }    
-}
+}) | Select-Object @SelectParameters
+
 
                     </Script>
       </ScriptMethod>
@@ -237,24 +266,24 @@ $dynamicModule =
     if ($joinedSequence -and $value -is [ScriptBlock]) {        
         New-Module -Name $joinedSequence -ScriptBlock ([ScriptBlock]::Create(
             "function $JoinedSequence {
-                . ${$JoinedSequence}   
+                . `${$JoinedSequence}
             }
 
             `${$JoinedSequence} = `$args[0]
 
             Export-ModuleMember -Function * -Variable * -Alias *"
         )) -ArgumentList $value    
-    } else {
+    }     
+    else {
         New-Module -Name $joinedSequence -ScriptBlock ([ScriptBlock]::Create(
             "`${$JoinedSequence} = `$args[0]
             Export-ModuleMember -Function * -Variable * -Alias *"
         )) -ArgumentList $value                
     }
 
-Write-Warning $itemPath
-
-$dynamicModule | Import-Module -Global -Force -DisableNameChecking -PassThru
-# $global:ExecutionContext.SessionState.InvokeCommand.InvokeScript("`${$itemPath} = `$args[0]", $Value)
+if ($dynamicModule) {
+    $dynamicModule | Import-Module -Global -Force -DisableNameChecking -PassThru
+}
 
 
     

@@ -47,23 +47,13 @@ if ($Number) {
     $allNamedEmoji = $allNamedEmoji | Where-Object Number -In $Number
 }
 
-$selectSplat = @{}
-if ($PSCmdlet.PagingParameters.Skip -or $PSCmdlet.PagingParameters.First) {
-    if ($PSCmdlet.PagingParameters.Skip) {
-        $selectSplat.Skip = $PSCmdlet.PagingParameters.Skip
-    }
-    elseif ($PSCmdlet.PagingParameters.First) {
-        $selectSplat.First = $PSCmdlet.PagingParameters.First
-    }
-}
-
+$selectSplat = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
 if ($name -or $number) {
-    if ($selectSplat.Count) {
+    if ($selectSplat.Count -gt 1) {
         $allNamedEmoji  | Select-Object @selectSplat
     } else {
         $allNamedEmoji
     }
-    
 } 
 elseif ($Block) {
     if ($selectSplat.Count) {

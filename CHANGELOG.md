@@ -1,3 +1,15 @@
+## Emoji 0.1.2:
+
+### Updating Emoji:
+
+* Paging Parameter Fixes:
+  * Emoji.GetPagingParameters (#32)
+  * Search-Emoji Paging (#34)
+  * Get-Emoji Paging (#30)
+* Adding Emoji.tests.ps1 (#33)
+
+---
+
 ## Emoji 0.1.1:
 
 ### More Emoji

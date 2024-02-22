@@ -1,5 +1,5 @@
 @{
-    ModuleVersion = '0.1.1'
+    ModuleVersion = '0.1.2'
     RootModule = 'Emoji.psm1'
     
     Description = '⟩⚡PowerShell Emoji 😎😉😍🥰🤔😟'
@@ -18,21 +18,16 @@
             LicenseURI = 'https://github.com/StartAutomating/blob/main/LICENSE'
             Tags = 'Emoji', 'PowerShell'
             ReleaseNotes = @'
-## Emoji 0.1.1:
+## Emoji 0.1.2:
 
-### More Emoji
+### Updating Emoji:
 
-* Find/Search-Emoji improvements:
-  * Supporting Multiple -Patterns (#15 ) (thanks @I-Am-Jakoby !)  
-  * Supporting -Word (#16)
-* Get-Emoji:
-  * Get-Emoji -Block (#23)
-  * Get-Emoji -First/-Skip (#26)
-* Emoji Block Support:
-  * `Emoji.get_Blocks` (#17)  
-  * Emoji.Block pseudotype (#18, #19, #20, #21, #22)
-* Added Logo (#28)
-  
+* Paging Parameter Fixes:
+  * Emoji.GetPagingParameters (#32)
+  * Search-Emoji Paging (#34)
+  * Get-Emoji Paging (#30)
+* Adding Emoji.tests.ps1 (#33)
+
 ---
 
 Full history in [CHANGELOG](https://github.com/StartAutomating/Emoji/blob/main/CHANGELOG.md)

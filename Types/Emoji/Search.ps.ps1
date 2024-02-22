@@ -7,17 +7,17 @@
 [CmdletBinding(SupportsPaging)]
 param(
 # One or more search patterns
-[Parameter(ValueFromPipelineByPropertyName)]
+[vbn()]
 [string[]]
 $Pattern,
 
 # If set, will search using the -like operator.  By default, will search using -match
-[Parameter(ValueFromPipelineByPropertyName)]
+[vbn()]
 [switch]
 $Like,
 
 # If set, will look for an exact word.  This is not compatible with -Like.
-[Parameter(ValueFromPipelineByPropertyName)]
+[vbn()]
 [switch]
 $Word
 )
@@ -44,4 +44,3 @@ $SelectParameters = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
         }
     }    
 }) | Select-Object @SelectParameters
-
