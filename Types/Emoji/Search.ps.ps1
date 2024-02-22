@@ -4,16 +4,20 @@
 .DESCRIPTION
     Searches for Emoji
 #>
+[CmdletBinding(SupportsPaging)]
 param(
 # One or more search patterns
+[vbn()]
 [string[]]
 $Pattern,
 
 # If set, will search using the -like operator.  By default, will search using -match
+[vbn()]
 [switch]
 $Like,
 
 # If set, will look for an exact word.  This is not compatible with -Like.
+[vbn()]
 [switch]
 $Word
 )
@@ -27,7 +31,9 @@ if ($word) {
     $Pattern = $Pattern -replace '^', '(?<=(?>^|\s))' -replace '$', '(?=(?>$|\s))'
 }
 
-foreach ($condition in $Pattern) {
+$SelectParameters = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
+
+@(foreach ($condition in $Pattern) {
     foreach ($namedEmoji in $this.Import()) {
         if ($like) {            
             if ($namedEmoji.Name -like $condition) {
@@ -37,4 +43,4 @@ foreach ($condition in $Pattern) {
             $namedEmoji
         }
     }    
-}
+}) | Select-Object @SelectParameters
