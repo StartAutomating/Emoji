@@ -36,10 +36,38 @@ $Number,
 [vbn()]
 [Alias('AllBlock','AllBlocks','ListBlock','ListBlocks')]
 [switch]
-$Block
+$Block,
+
+# One or more block names
+[vbn()]
+[ValidValues(Values={
+    $pwd |
+        Split-Path | 
+        Split-Path | 
+        Join-Path -ChildPath "Data" | 
+        Join-Path -ChildPath "AllEmojiBlocks.csv" | 
+        Import-Csv | 
+        Select-Object -ExpandProperty BlockName
+})]
+[string[]]
+$BlockName
 )
 
 $allNamedEmoji = Import-Emoji
+
+if (-not $this) {
+    $this = Get-Module Emoji
+}
+
+if ($BlockName) {
+    foreach ($nameOfBlock in $BlockName) {
+        $blockRange = $this.Blocks[$nameOfBlock].Range
+        if ($blockRange) {
+            $number += $blockRange
+        }        
+    }
+}
+
 if ($Name) {
     $allNamedEmoji = $allNamedEmoji | Where-Object Name -In $Name
 }
