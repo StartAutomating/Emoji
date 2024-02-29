@@ -426,6 +426,25 @@ $Value
 $this | Add-Member NoteProperty $EmojiSequence -Value $value -Force
                     </Script>
       </ScriptMethod>
+      <ScriptMethod>
+        <Name>Remove</Name>
+        <Script>
+                        &lt;#
+.SYNOPSIS
+    Removes an Emoji sequence
+.DESCRIPTION
+    Removes an Emoji sequence from the cache
+#&gt;
+param(
+# The emoji sequence
+[string]
+$EmojiSequence
+)
+
+if (-not $this.$EmojiSequence) { return }
+$this.psobject.properties.Remove($EmojiSequence)
+                    </Script>
+      </ScriptMethod>
     </Members>
   </Type>
   <Type>
