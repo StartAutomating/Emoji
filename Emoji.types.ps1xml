@@ -328,6 +328,24 @@ if ($dynamicModule) {
 $this.'.Blocks'
                     </GetScriptBlock>
       </ScriptProperty>
+      <ScriptProperty>
+        <Name>Sequences</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Emoji Sequences
+.DESCRIPTION
+    Gets the Emoji Sequences Collection
+#&gt;
+if (-not $this.'.Sequences') {
+    $this  | Add-Member NoteProperty '.Sequences' (
+        [PSCustomObject]@{PSTypeName='Emoji.Sequences'}
+    ) -Force
+}
+
+$this.'.Sequences'
+                    </GetScriptBlock>
+      </ScriptProperty>
     </Members>
   </Type>
   <Type>
@@ -377,6 +395,37 @@ param()
                         "0x$($this.RangeStart)" -as [int]
                     </GetScriptBlock>
       </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Emoji.Sequences</Name>
+    <Members>
+      <AliasProperty>
+        <Name>Set</Name>
+        <ReferencedMemberName>Add</ReferencedMemberName>
+      </AliasProperty>
+      <ScriptMethod>
+        <Name>Add</Name>
+        <Script>
+                        &lt;#
+.SYNOPSIS
+    Adds an Emoji sequence
+.DESCRIPTION
+    Adds an Emoji sequence to the cache 
+#&gt;
+param(
+# The Emoji Sequence
+[string]
+$EmojiSequence,
+
+# The value of the Emoji sequence.
+[PSObject]
+$Value
+)
+
+$this | Add-Member NoteProperty $EmojiSequence -Value $value -Force
+                    </Script>
+      </ScriptMethod>
     </Members>
   </Type>
   <Type>
