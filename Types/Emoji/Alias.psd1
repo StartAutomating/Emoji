@@ -1,5 +1,5 @@
 @{
-    Demo = 'Demos'
+    Demos = 'Demo'
     Sequence = 'Sequences'
     Find = 'Search'
 }
