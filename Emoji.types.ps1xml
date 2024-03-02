@@ -4,8 +4,8 @@
     <Name>Emoji</Name>
     <Members>
       <AliasProperty>
-        <Name>Demo</Name>
-        <ReferencedMemberName>Demos</ReferencedMemberName>
+        <Name>Demos</Name>
+        <ReferencedMemberName>Demo</ReferencedMemberName>
       </AliasProperty>
       <AliasProperty>
         <Name>Find</Name>
