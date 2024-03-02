@@ -4,6 +4,10 @@
     <Name>Emoji</Name>
     <Members>
       <AliasProperty>
+        <Name>Demo</Name>
+        <ReferencedMemberName>Demos</ReferencedMemberName>
+      </AliasProperty>
+      <AliasProperty>
         <Name>Find</Name>
         <ReferencedMemberName>Search</ReferencedMemberName>
       </AliasProperty>
@@ -330,6 +334,24 @@ if ($dynamicModule) {
 }
 
 $this.'.Blocks'
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>Demo</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Gets module demos
+.DESCRIPTION
+    Gets demo files related to a module.
+.EXAMPLE
+    $Posh.Demos
+.LINK
+    https://github.com/StartAutomating/ShowDemo
+#&gt;
+$this |
+    Split-Path |
+        Get-ChildItem -Recurse -Filter *.demo.ps1
                     </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
