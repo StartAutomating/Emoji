@@ -1,3 +1,4 @@
 @{
+    Sequence = 'Sequences'
     Find = 'Search'
 }
