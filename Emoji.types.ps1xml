@@ -87,7 +87,7 @@ $Number,
 
 # If set, will get Emoji blocks
 [Parameter(ValueFromPipelineByPropertyName)]
-[Alias('AllBlock','AllBlocks','ListBlock','ListBlocks')]
+[Alias('AllBlock','AllBlocks','ListBlock','ListBlocks','Blocks')]
 [switch]
 $Block,
 
