@@ -14,4 +14,28 @@ $EmojiSequence,
 $Value
 )
 
+
+$dynamicModule = 
+    if ($EmojiSequence -and $value -is [ScriptBlock]) {        
+        New-Module -Name $EmojiSequence -ScriptBlock ([ScriptBlock]::Create(
+            "function $EmojiSequence {
+                . `${$EmojiSequence}
+            }
+
+            `${$EmojiSequence} = `$args[0]
+
+            Export-ModuleMember -Function * -Variable * -Alias *"
+        )) -ArgumentList $value    
+    }     
+    else {
+        New-Module -Name $EmojiSequence -ScriptBlock ([ScriptBlock]::Create(
+            "`${$EmojiSequence} = `$args[0]
+            Export-ModuleMember -Function * -Variable * -Alias *"
+        )) -ArgumentList $value
+    }
+
+if ($dynamicModule) {
+    $dynamicModule | Import-Module -Global -Force -DisableNameChecking -PassThru
+}
+
 $this | Add-Member NoteProperty $EmojiSequence -Value $value -Force
