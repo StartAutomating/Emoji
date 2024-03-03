@@ -34,7 +34,7 @@ $Number,
 
 # If set, will get Emoji blocks
 [vbn()]
-[Alias('AllBlock','AllBlocks','ListBlock','ListBlocks')]
+[Alias('AllBlock','AllBlocks','ListBlock','ListBlocks','Blocks')]
 [switch]
 $Block,
 
