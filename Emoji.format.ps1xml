@@ -205,6 +205,29 @@
       </TableControl>
     </View>
     <View>
+      <Name>Emoji</Name>
+      <ViewSelectedBy>
+        <TypeName>Emoji.Symbol</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Alignment>Left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Emoji</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
       <Name>Emoji.Symbol</Name>
       <ViewSelectedBy>
         <TypeName>Emoji.Symbol</TypeName>
@@ -255,6 +278,23 @@
                         $PSStyle.Reset
                     }
                 </ScriptBlock>
+              </ExpressionBinding>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </View>
+    <View>
+      <Name>Emoji</Name>
+      <ViewSelectedBy>
+        <TypeName>Emoji.Symbol</TypeName>
+      </ViewSelectedBy>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <ExpressionBinding>
+                <PropertyName>Emoji</PropertyName>
               </ExpressionBinding>
             </CustomItem>
           </CustomEntry>
