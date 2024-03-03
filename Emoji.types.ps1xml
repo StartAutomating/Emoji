@@ -547,6 +547,23 @@ if (-not $this.$EmojiSequence) { return }
 $this.psobject.properties.Remove($EmojiSequence)
                     </Script>
       </ScriptMethod>
+      <ScriptProperty>
+        <Name>All</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Gets Emoji Sequences
+.DESCRIPTION
+    Gets all loaded Emoji Sequences
+#&gt;
+param()
+foreach ($property in $this.psobject.properties) {
+    if (-not $property.IsInstance) { continue }
+    if ($property -isnot [psnoteproperty]) { continue }
+    $property.Value
+}
+                    </GetScriptBlock>
+      </ScriptProperty>
     </Members>
   </Type>
   <Type>
