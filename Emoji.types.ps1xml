@@ -532,6 +532,21 @@ $this.psobject.properties.Remove($EmojiSequence)
 
                     </GetScriptBlock>
       </ScriptProperty>
+      <ScriptProperty>
+        <Name>PowerShell</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Gets an Emoji's PowerShell string
+.DESCRIPTION
+    Gets a PowerShell string that would reproduce the Emoji.
+
+    These strings will only work on PowerShell Core.
+#&gt;
+param()
+'"`u{' + $_.Hex + '}"'
+                    </GetScriptBlock>
+      </ScriptProperty>
     </Members>
   </Type>
 </Types>
