@@ -5,11 +5,19 @@ $EmojiSequence,
 
 [vbn()]
 [PSObject]
-$Value
+$Value,
+
+[vbn()]
+[scriptblock]
+$ScriptBlock
 )
 
 $joinedSequence = $EmojiSequence -join ''
 
-$emoji.Sequence = $joinedSequence, $value
+if ($ScriptBlock) {
+    $Value = $ScriptBlock
+}
+
+$emoji.Sequence.Add($joinedSequence, $value)
 
     
