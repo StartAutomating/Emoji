@@ -37,6 +37,40 @@
       </TableControl>
     </View>
     <View>
+      <Name>Emoji.Sequence</Name>
+      <ViewSelectedBy>
+        <TypeName>Emoji.Sequence</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ExportedCommands</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ExportedVariables</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap />
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock> $_.ExportedCommands.Keys -join [Environment]::NewLine </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock> $_.ExportedVariables.Keys -join [Environment]::NewLine </ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
       <Name>Emoji.Symbol</Name>
       <ViewSelectedBy>
         <TypeName>Emoji.Symbol</TypeName>
