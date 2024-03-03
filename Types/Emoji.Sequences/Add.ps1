@@ -36,8 +36,10 @@ $dynamicModule =
     }
 
 if ($dynamicModule) {
-    $dynamicModule | Import-Module -Global -Force -DisableNameChecking -PassThru
-    $this | Add-Member NoteProperty $EmojiSequence -Value $dynamicModule -Force
+    $addedModule = $dynamicModule | Import-Module -Global -Force -DisableNameChecking -PassThru
+    $addedModule.pstypenames.insert(0,'Emoji.Sequence')
+    $addedModule
+    $this | Add-Member NoteProperty $EmojiSequence -Value $addedModule -Force
 } else {
     $this | Add-Member NoteProperty $EmojiSequence -Value $value -Force
 }
