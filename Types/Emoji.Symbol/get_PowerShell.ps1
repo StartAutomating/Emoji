@@ -7,4 +7,4 @@
     These strings will only work on PowerShell Core.
 #>
 param()
-'"`u{' + $_.Hex + '}"'
+'"`u{' + $this.Hex + '}"'
