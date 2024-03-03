@@ -472,6 +472,11 @@ param()
     </Members>
   </Type>
   <Type>
+    <Name>Emoji.Sequence</Name>
+    <Members>
+    </Members>
+  </Type>
+  <Type>
     <Name>Emoji.Sequences</Name>
     <Members>
       <AliasProperty>
