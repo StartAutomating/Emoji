@@ -53,7 +53,7 @@ $Block,
 $BlockName
 )
 
-$allNamedEmoji = Import-Emoji
+$allSelectedEmoji = Import-Emoji
 
 if (-not $this) {
     $this = Get-Module Emoji
@@ -69,18 +69,26 @@ if ($BlockName) {
 }
 
 if ($Name) {
-    $allNamedEmoji = $allNamedEmoji | Where-Object Name -In $Name
+    if ($Name -match '\p{P}') {
+        if ($name -match '\*' -and $name -notmatch '[\[\]\.\?\(\)]') {
+            $allSelectedEmoji = Search-Emoji -Like -Pattern $name
+        } else {
+            $allSelectedEmoji = Search-Emoji -Pattern $name
+        }
+    } else {
+        $allSelectedEmoji = $allSelectedEmoji | Where-Object Name -In $Name
+    }    
 }
 if ($Number) {
-    $allNamedEmoji = $allNamedEmoji | Where-Object Number -In $Number
+    $allSelectedEmoji = $allSelectedEmoji | Where-Object Number -In $Number
 }
 
 $selectSplat = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
 if ($name -or $number) {
     if ($selectSplat.Count -gt 1) {
-        $allNamedEmoji  | Select-Object @selectSplat
+        $allSelectedEmoji  | Select-Object @selectSplat
     } else {
-        $allNamedEmoji
+        $allSelectedEmoji
     }
 } 
 elseif ($Block) {
