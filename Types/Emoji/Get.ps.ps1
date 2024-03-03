@@ -34,25 +34,67 @@ $Number,
 
 # If set, will get Emoji blocks
 [vbn()]
-[Alias('AllBlock','AllBlocks','ListBlock','ListBlocks')]
+[Alias('AllBlock','AllBlocks','ListBlock','ListBlocks','Blocks')]
 [switch]
-$Block
+$Block,
+
+# If set, will list Emoji sequences
+[vbn()]
+[Alias('AllSequence','AllSequences','ListSequences','ListSequence','Sequences')]
+[switch]
+$Sequence,
+
+# One or more block names
+[vbn()]
+[ValidValues(Values={
+    $pwd |
+        Split-Path | 
+        Split-Path | 
+        Join-Path -ChildPath "Data" | 
+        Join-Path -ChildPath "AllEmojiBlocks.csv" | 
+        Import-Csv | 
+        Select-Object -ExpandProperty BlockName
+})]
+[string[]]
+$BlockName
 )
 
-$allNamedEmoji = Import-Emoji
+$allSelectedEmoji = Import-Emoji
+
+if (-not $this) {
+    $this = Get-Module Emoji
+}
+
+if ($BlockName) {
+    foreach ($nameOfBlock in $BlockName) {
+        $blockRange = $this.Blocks[$nameOfBlock].Range
+        if ($blockRange) {
+            $number += $blockRange
+        }        
+    }
+}
+
 if ($Name) {
-    $allNamedEmoji = $allNamedEmoji | Where-Object Name -In $Name
+    if ($Name -match '\p{P}') {
+        if ($name -match '\*' -and $name -notmatch '[\[\]\.\?\(\)]') {
+            $allSelectedEmoji = Search-Emoji -Like -Pattern $name
+        } else {
+            $allSelectedEmoji = Search-Emoji -Pattern $name
+        }
+    } else {
+        $allSelectedEmoji = $allSelectedEmoji | Where-Object Name -In $Name
+    }    
 }
 if ($Number) {
-    $allNamedEmoji = $allNamedEmoji | Where-Object Number -In $Number
+    $allSelectedEmoji = $allSelectedEmoji | Where-Object Number -In $Number
 }
 
 $selectSplat = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
 if ($name -or $number) {
     if ($selectSplat.Count -gt 1) {
-        $allNamedEmoji  | Select-Object @selectSplat
+        $allSelectedEmoji  | Select-Object @selectSplat
     } else {
-        $allNamedEmoji
+        $allSelectedEmoji
     }
 } 
 elseif ($Block) {
@@ -61,6 +103,13 @@ elseif ($Block) {
     } else {
         $emoji.Blocks.Values
     }    
+}
+elseif ($Sequence) {
+    if ($selectSplat.Count) {
+        $emoji.Sequences.All | Select-Object @selectSplat
+    } else {
+        $emoji.Sequences.All
+    }
 }
 else {
     $Emoji

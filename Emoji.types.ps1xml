@@ -4,8 +4,16 @@
     <Name>Emoji</Name>
     <Members>
       <AliasProperty>
+        <Name>Demos</Name>
+        <ReferencedMemberName>Demo</ReferencedMemberName>
+      </AliasProperty>
+      <AliasProperty>
         <Name>Find</Name>
         <ReferencedMemberName>Search</ReferencedMemberName>
+      </AliasProperty>
+      <AliasProperty>
+        <Name>Sequence</Name>
+        <ReferencedMemberName>Sequences</ReferencedMemberName>
       </AliasProperty>
       <ScriptMethod>
         <Name>Export</Name>
@@ -79,25 +87,59 @@ $Number,
 
 # If set, will get Emoji blocks
 [Parameter(ValueFromPipelineByPropertyName)]
-[Alias('AllBlock','AllBlocks','ListBlock','ListBlocks')]
+[Alias('AllBlock','AllBlocks','ListBlock','ListBlocks','Blocks')]
 [switch]
-$Block
+$Block,
+
+# If set, will list Emoji sequences
+[Parameter(ValueFromPipelineByPropertyName)]
+[Alias('AllSequence','AllSequences','ListSequences','ListSequence','Sequences')]
+[switch]
+$Sequence,
+
+# One or more block names
+[Parameter(ValueFromPipelineByPropertyName)]
+[ValidateSet('Basic Latin','Latin-1 Supplement','Latin Extended-A','Latin Extended-B','IPA Extensions','Spacing Modifier Letters','Combining Diacritical Marks','Greek and Coptic','Cyrillic','Cyrillic Supplement','Armenian','Hebrew','Arabic','Syriac','Arabic Supplement','Thaana','NKo','Samaritan','Mandaic','Syriac Supplement','Arabic Extended-B','Arabic Extended-A','Devanagari','Bengali','Gurmukhi','Gujarati','Oriya','Tamil','Telugu','Kannada','Malayalam','Sinhala','Thai','Lao','Tibetan','Myanmar','Georgian','Hangul Jamo','Ethiopic','Ethiopic Supplement','Cherokee','Unified Canadian Aboriginal Syllabics','Ogham','Runic','Tagalog','Hanunoo','Buhid','Tagbanwa','Khmer','Mongolian','Unified Canadian Aboriginal Syllabics Extended','Limbu','Tai Le','New Tai Lue','Khmer Symbols','Buginese','Tai Tham','Combining Diacritical Marks Extended','Balinese','Sundanese','Batak','Lepcha','Ol Chiki','Cyrillic Extended-C','Georgian Extended','Sundanese Supplement','Vedic Extensions','Phonetic Extensions','Phonetic Extensions Supplement','Combining Diacritical Marks Supplement','Latin Extended Additional','Greek Extended','General Punctuation','Superscripts and Subscripts','Currency Symbols','Combining Diacritical Marks for Symbols','Letterlike Symbols','Number Forms','Arrows','Mathematical Operators','Miscellaneous Technical','Control Pictures','Optical Character Recognition','Enclosed Alphanumerics','Box Drawing','Block Elements','Geometric Shapes','Miscellaneous Symbols','Dingbats','Miscellaneous Mathematical Symbols-A','Supplemental Arrows-A','Braille Patterns','Supplemental Arrows-B','Miscellaneous Mathematical Symbols-B','Supplemental Mathematical Operators','Miscellaneous Symbols and Arrows','Glagolitic','Latin Extended-C','Coptic','Georgian Supplement','Tifinagh','Ethiopic Extended','Cyrillic Extended-A','Supplemental Punctuation','CJK Radicals Supplement','Kangxi Radicals','Ideographic Description Characters','CJK Symbols and Punctuation','Hiragana','Katakana','Bopomofo','Hangul Compatibility Jamo','Kanbun','Bopomofo Extended','CJK Strokes','Katakana Phonetic Extensions','Enclosed CJK Letters and Months','CJK Compatibility','CJK Unified Ideographs Extension A','Yijing Hexagram Symbols','CJK Unified Ideographs','Yi Syllables','Yi Radicals','Lisu','Vai','Cyrillic Extended-B','Bamum','Modifier Tone Letters','Latin Extended-D','Syloti Nagri','Common Indic Number Forms','Phags-pa','Saurashtra','Devanagari Extended','Kayah Li','Rejang','Hangul Jamo Extended-A','Javanese','Myanmar Extended-B','Cham','Myanmar Extended-A','Tai Viet','Meetei Mayek Extensions','Ethiopic Extended-A','Latin Extended-E','Cherokee Supplement','Meetei Mayek','Hangul Syllables','Hangul Jamo Extended-B','High Surrogates','High Private Use Surrogates','Low Surrogates','Private Use Area','CJK Compatibility Ideographs','Alphabetic Presentation Forms','Arabic Presentation Forms-A','Variation Selectors','Vertical Forms','Combining Half Marks','CJK Compatibility Forms','Small Form Variants','Arabic Presentation Forms-B','Halfwidth and Fullwidth Forms','Specials','Linear B Syllabary','Linear B Ideograms','Aegean Numbers','Ancient Greek Numbers','Ancient Symbols','Phaistos Disc','Lycian','Carian','Coptic Epact Numbers','Old Italic','Gothic','Old Permic','Ugaritic','Old Persian','Deseret','Shavian','Osmanya','Osage','Elbasan','Caucasian Albanian','Vithkuqi','Linear A','Latin Extended-F','Cypriot Syllabary','Imperial Aramaic','Palmyrene','Nabataean','Hatran','Phoenician','Lydian','Meroitic Hieroglyphs','Meroitic Cursive','Kharoshthi','Old South Arabian','Old North Arabian','Manichaean','Avestan','Inscriptional Parthian','Inscriptional Pahlavi','Psalter Pahlavi','Old Turkic','Old Hungarian','Hanifi Rohingya','Rumi Numeral Symbols','Yezidi','Arabic Extended-C','Old Sogdian','Sogdian','Old Uyghur','Chorasmian','Elymaic','Brahmi','Kaithi','Sora Sompeng','Chakma','Mahajani','Sharada','Sinhala Archaic Numbers','Khojki','Multani','Khudawadi','Grantha','Newa','Tirhuta','Siddham','Modi','Mongolian Supplement','Takri','Ahom','Dogra','Warang Citi','Dives Akuru','Nandinagari','Zanabazar Square','Soyombo','Unified Canadian Aboriginal Syllabics Extended-A','Pau Cin Hau','Devanagari Extended-A','Bhaiksuki','Marchen','Masaram Gondi','Gunjala Gondi','Makasar','Kawi','Lisu Supplement','Tamil Supplement','Cuneiform','Cuneiform Numbers and Punctuation','Early Dynastic Cuneiform','Cypro-Minoan','Egyptian Hieroglyphs','Egyptian Hieroglyph Format Controls','Anatolian Hieroglyphs','Bamum Supplement','Mro','Tangsa','Bassa Vah','Pahawh Hmong','Medefaidrin','Miao','Ideographic Symbols and Punctuation','Tangut','Tangut Components','Khitan Small Script','Tangut Supplement','Kana Extended-B','Kana Supplement','Kana Extended-A','Small Kana Extension','Nushu','Duployan','Shorthand Format Controls','Znamenny Musical Notation','Byzantine Musical Symbols','Musical Symbols','Ancient Greek Musical Notation','Kaktovik Numerals','Mayan Numerals','Tai Xuan Jing Symbols','Counting Rod Numerals','Mathematical Alphanumeric Symbols','Sutton SignWriting','Latin Extended-G','Glagolitic Supplement','Cyrillic Extended-D','Nyiakeng Puachue Hmong','Toto','Wancho','Nag Mundari','Ethiopic Extended-B','Mende Kikakui','Adlam','Indic Siyaq Numbers','Ottoman Siyaq Numbers','Arabic Mathematical Alphabetic Symbols','Mahjong Tiles','Domino Tiles','Playing Cards','Enclosed Alphanumeric Supplement','Enclosed Ideographic Supplement','Miscellaneous Symbols and Pictographs','Emoticons','Ornamental Dingbats','Transport and Map Symbols','Alchemical Symbols','Geometric Shapes Extended','Supplemental Arrows-C','Supplemental Symbols and Pictographs','Chess Symbols','Symbols and Pictographs Extended-A','Symbols for Legacy Computing','CJK Unified Ideographs Extension B','CJK Unified Ideographs Extension C','CJK Unified Ideographs Extension D','CJK Unified Ideographs Extension E','CJK Unified Ideographs Extension F','CJK Unified Ideographs Extension I','CJK Compatibility Ideographs Supplement','CJK Unified Ideographs Extension G','CJK Unified Ideographs Extension H','Tags','Variation Selectors Supplement','Supplementary Private Use Area-A','Supplementary Private Use Area-B')]
+[string[]]
+$BlockName
 )
 
-$allNamedEmoji = Import-Emoji
+$allSelectedEmoji = Import-Emoji
+
+if (-not $this) {
+    $this = Get-Module Emoji
+}
+
+if ($BlockName) {
+    foreach ($nameOfBlock in $BlockName) {
+        $blockRange = $this.Blocks[$nameOfBlock].Range
+        if ($blockRange) {
+            $number += $blockRange
+        }        
+    }
+}
+
 if ($Name) {
-    $allNamedEmoji = $allNamedEmoji | Where-Object Name -In $Name
+    if ($Name -match '\p{P}') {
+        if ($name -match '\*' -and $name -notmatch '[\[\]\.\?\(\)]') {
+            $allSelectedEmoji = Search-Emoji -Like -Pattern $name
+        } else {
+            $allSelectedEmoji = Search-Emoji -Pattern $name
+        }
+    } else {
+        $allSelectedEmoji = $allSelectedEmoji | Where-Object Name -In $Name
+    }    
 }
 if ($Number) {
-    $allNamedEmoji = $allNamedEmoji | Where-Object Number -In $Number
+    $allSelectedEmoji = $allSelectedEmoji | Where-Object Number -In $Number
 }
 
 $selectSplat = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
 if ($name -or $number) {
     if ($selectSplat.Count -gt 1) {
-        $allNamedEmoji  | Select-Object @selectSplat
+        $allSelectedEmoji  | Select-Object @selectSplat
     } else {
-        $allNamedEmoji
+        $allSelectedEmoji
     }
 } 
 elseif ($Block) {
@@ -106,6 +148,13 @@ elseif ($Block) {
     } else {
         $emoji.Blocks.Values
     }    
+}
+elseif ($Sequence) {
+    if ($selectSplat.Count) {
+        $emoji.Sequences.All | Select-Object @selectSplat
+    } else {
+        $emoji.Sequences.All
+    }
 }
 else {
     $Emoji
@@ -251,40 +300,44 @@ $SelectParameters = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
       <ScriptMethod>
         <Name>Set</Name>
         <Script>
-                        param(
+                        &lt;#
+.SYNOPSIS
+    Sets an Emoji
+.DESCRIPTION
+    Sets an Emoji Sequence.
+
+    This creates a command or variable (using some emoji), and sets it to a -Value or -ScriptBlock.
+
+    If a -Value or -ScriptBlock is not provided, the -Value will default to a [ScriptBlock] that outputs the sequence.
+#&gt;
+param(
+# The Emoji Sequence.
 [Parameter(ValueFromPipelineByPropertyName)]
 [string[]]
 $EmojiSequence,
 
+# The value to set.
+[Parameter(ValueFromPipelineByPropertyName)]
 [PSObject]
-$Value
+$Value,
+
+# A ScriptBlock value.  If provided, this will override -Value.
+[Parameter(ValueFromPipelineByPropertyName)]
+[scriptblock]
+$ScriptBlock
 )
 
 $joinedSequence = $EmojiSequence -join ''
 
-$dynamicModule = 
-    if ($joinedSequence -and $value -is [ScriptBlock]) {        
-        New-Module -Name $joinedSequence -ScriptBlock ([ScriptBlock]::Create(
-            "function $JoinedSequence {
-                . `${$JoinedSequence}
-            }
-
-            `${$JoinedSequence} = `$args[0]
-
-            Export-ModuleMember -Function * -Variable * -Alias *"
-        )) -ArgumentList $value    
-    }     
-    else {
-        New-Module -Name $joinedSequence -ScriptBlock ([ScriptBlock]::Create(
-            "`${$JoinedSequence} = `$args[0]
-            Export-ModuleMember -Function * -Variable * -Alias *"
-        )) -ArgumentList $value                
-    }
-
-if ($dynamicModule) {
-    $dynamicModule | Import-Module -Global -Force -DisableNameChecking -PassThru
+if ($ScriptBlock) {
+    $Value = $ScriptBlock
 }
 
+if (-not $value) {
+    $value = [ScriptBlock]::Create("'$($joinedSequence -replace "'","''")'")
+}
+
+$emoji.Sequence.Add($joinedSequence, $value)
 
     
 
@@ -307,6 +360,78 @@ if ($dynamicModule) {
 
 $this.'.Blocks'
                     </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>Demo</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Gets module demos
+.DESCRIPTION
+    Gets demo files related to a module.
+.EXAMPLE
+    $Posh.Demos
+.LINK
+    https://github.com/StartAutomating/ShowDemo
+#&gt;
+$this |
+    Split-Path |
+        Get-ChildItem -Recurse -Filter *.demo.ps1
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>Sequences</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Emoji Sequences
+.DESCRIPTION
+    Gets the Emoji Sequences Collection
+#&gt;
+if (-not $this.'.Sequences') {
+    $this  | Add-Member NoteProperty '.Sequences' (
+        [PSCustomObject]@{PSTypeName='Emoji.Sequences'}
+    ) -Force
+}
+
+$this.'.Sequences'
+                    </GetScriptBlock>
+        <SetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Sets Emoji Sequences
+.DESCRIPTION
+    Sets the Emoji Sequences Collection.
+.NOTES
+    Any string arguments will be considered the sequence.
+    The first non-string argument will be considered the value.
+#&gt;
+param()
+
+$unrolledArgs = $args | . { process { $_ } }
+
+if (-not $this.'.Sequences') {
+    $this  | Add-Member NoteProperty '.Sequences' (
+        [PSCustomObject]@{PSTypeName='Emoji.Sequences'}
+    ) -Force
+}
+
+$Value = $null
+$emojiSequence = foreach ($arg in $unrolledArgs) {
+    if ($arg -is [string]) {
+        $arg
+    } elseif (-not $value) {
+        $value = $arg
+    }
+}
+
+if ($emojiSequence -and $Value) {
+    $this.'.Sequences'.Add($emojiSequence -join '', $value)
+}
+
+
+
+                    </SetScriptBlock>
       </ScriptProperty>
     </Members>
   </Type>
@@ -360,6 +485,106 @@ param()
     </Members>
   </Type>
   <Type>
+    <Name>Emoji.Sequence</Name>
+    <Members>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Emoji.Sequences</Name>
+    <Members>
+      <AliasProperty>
+        <Name>Set</Name>
+        <ReferencedMemberName>Add</ReferencedMemberName>
+      </AliasProperty>
+      <ScriptMethod>
+        <Name>Add</Name>
+        <Script>
+                        &lt;#
+.SYNOPSIS
+    Adds an Emoji sequence
+.DESCRIPTION
+    Adds an Emoji sequence to the cache 
+#&gt;
+param(
+# The Emoji Sequence
+[string]
+$EmojiSequence,
+
+# The value of the Emoji sequence.
+[PSObject]
+$Value
+)
+
+
+if (-not $EmojiSequence) { return }
+$dynamicModule = 
+    if ($EmojiSequence -and $value -is [ScriptBlock]) {        
+        New-Module -Name $EmojiSequence -ScriptBlock ([ScriptBlock]::Create(
+            "function $EmojiSequence {
+                . `${$EmojiSequence}
+            }
+
+            `${$EmojiSequence} = `$args[0]
+
+            Export-ModuleMember -Function * -Variable * -Alias *"
+        )) -ArgumentList $value    
+    }     
+    else {
+        New-Module -Name $EmojiSequence -ScriptBlock ([ScriptBlock]::Create(
+            "`${$EmojiSequence} = `$args[0]
+            Export-ModuleMember -Function * -Variable * -Alias *"
+        )) -ArgumentList $value
+    }
+
+if ($dynamicModule) {
+    $addedModule = $dynamicModule | Import-Module -Global -Force -DisableNameChecking -PassThru
+    $addedModule.pstypenames.insert(0,'Emoji.Sequence')
+    $addedModule
+    $this | Add-Member NoteProperty $EmojiSequence -Value $addedModule -Force
+} else {
+    $this | Add-Member NoteProperty $EmojiSequence -Value $value -Force
+}
+                    </Script>
+      </ScriptMethod>
+      <ScriptMethod>
+        <Name>Remove</Name>
+        <Script>
+                        &lt;#
+.SYNOPSIS
+    Removes an Emoji sequence
+.DESCRIPTION
+    Removes an Emoji sequence from the cache
+#&gt;
+param(
+# The emoji sequence
+[string]
+$EmojiSequence
+)
+
+if (-not $this.$EmojiSequence) { return }
+$this.psobject.properties.Remove($EmojiSequence)
+                    </Script>
+      </ScriptMethod>
+      <ScriptProperty>
+        <Name>All</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Gets Emoji Sequences
+.DESCRIPTION
+    Gets all loaded Emoji Sequences
+#&gt;
+param()
+foreach ($property in $this.psobject.properties) {
+    if (-not $property.IsInstance) { continue }
+    if ($property -isnot [psnoteproperty]) { continue }
+    $property.Value
+}
+                    </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
     <Name>Emoji.Symbol</Name>
     <Members>
       <AliasProperty>
@@ -377,6 +602,21 @@ param()
 #&gt;
 "0x$($this.Hex)" -as [int]
 
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>PowerShell</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Gets an Emoji's PowerShell string
+.DESCRIPTION
+    Gets a PowerShell string that would reproduce the Emoji.
+
+    These strings will only work on PowerShell Core.
+#&gt;
+param()
+'"`u{' + $this.Hex + '}"'
                     </GetScriptBlock>
       </ScriptProperty>
     </Members>

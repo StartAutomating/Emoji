@@ -1,36 +1,40 @@
+<#
+.SYNOPSIS
+    Sets an Emoji
+.DESCRIPTION
+    Sets an Emoji Sequence.
+
+    This creates a command or variable (using some emoji), and sets it to a -Value or -ScriptBlock.
+
+    If a -Value or -ScriptBlock is not provided, the -Value will default to a [ScriptBlock] that outputs the sequence.
+#>
 param(
+# The Emoji Sequence.
 [vbn()]
 [string[]]
 $EmojiSequence,
 
+# The value to set.
+[vbn()]
 [PSObject]
-$Value
+$Value,
+
+# A ScriptBlock value.  If provided, this will override -Value.
+[vbn()]
+[scriptblock]
+$ScriptBlock
 )
 
 $joinedSequence = $EmojiSequence -join ''
 
-$dynamicModule = 
-    if ($joinedSequence -and $value -is [ScriptBlock]) {        
-        New-Module -Name $joinedSequence -ScriptBlock ([ScriptBlock]::Create(
-            "function $JoinedSequence {
-                . `${$JoinedSequence}
-            }
-
-            `${$JoinedSequence} = `$args[0]
-
-            Export-ModuleMember -Function * -Variable * -Alias *"
-        )) -ArgumentList $value    
-    }     
-    else {
-        New-Module -Name $joinedSequence -ScriptBlock ([ScriptBlock]::Create(
-            "`${$JoinedSequence} = `$args[0]
-            Export-ModuleMember -Function * -Variable * -Alias *"
-        )) -ArgumentList $value                
-    }
-
-if ($dynamicModule) {
-    $dynamicModule | Import-Module -Global -Force -DisableNameChecking -PassThru
+if ($ScriptBlock) {
+    $Value = $ScriptBlock
 }
 
+if (-not $value) {
+    $value = [ScriptBlock]::Create("'$($joinedSequence -replace "'","''")'")
+}
+
+$emoji.Sequence.Add($joinedSequence, $value)
 
     
