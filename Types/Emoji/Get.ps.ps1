@@ -38,6 +38,12 @@ $Number,
 [switch]
 $Block,
 
+# If set, will list Emoji sequences
+[vbn()]
+[Alias('AllSequence','AllSequences','ListSequences','ListSequence','Sequences')]
+[switch]
+$Sequence,
+
 # One or more block names
 [vbn()]
 [ValidValues(Values={
@@ -97,6 +103,13 @@ elseif ($Block) {
     } else {
         $emoji.Blocks.Values
     }    
+}
+elseif ($Sequence) {
+    if ($selectSplat.Count) {
+        $emoji.Sequences.All | Select-Object @selectSplat
+    } else {
+        $emoji.Sequences.All
+    }
 }
 else {
     $Emoji
