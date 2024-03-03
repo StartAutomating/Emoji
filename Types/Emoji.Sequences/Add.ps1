@@ -15,6 +15,7 @@ $Value
 )
 
 
+if (-not $EmojiSequence) { return }
 $dynamicModule = 
     if ($EmojiSequence -and $value -is [ScriptBlock]) {        
         New-Module -Name $EmojiSequence -ScriptBlock ([ScriptBlock]::Create(
@@ -36,6 +37,7 @@ $dynamicModule =
 
 if ($dynamicModule) {
     $dynamicModule | Import-Module -Global -Force -DisableNameChecking -PassThru
+    $this | Add-Member NoteProperty $EmojiSequence -Value $dynamicModule -Force
+} else {
+    $this | Add-Member NoteProperty $EmojiSequence -Value $value -Force
 }
-
-$this | Add-Member NoteProperty $EmojiSequence -Value $value -Force
