@@ -544,7 +544,7 @@ $this.psobject.properties.Remove($EmojiSequence)
     These strings will only work on PowerShell Core.
 #&gt;
 param()
-'"`u{' + $_.Hex + '}"'
+'"`u{' + $this.Hex + '}"'
                     </GetScriptBlock>
       </ScriptProperty>
     </Members>
