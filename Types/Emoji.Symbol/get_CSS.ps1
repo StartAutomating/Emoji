@@ -7,4 +7,4 @@
 param()
 
 $className = $this.Name.ToLower() -replace '\s','-'
-".$className:before { content: `"$($this.Emoji)`"; }"
+".${className}::before { content: `"$($this.Emoji)`"; }"
