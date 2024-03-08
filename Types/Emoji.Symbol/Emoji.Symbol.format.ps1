@@ -24,6 +24,10 @@ Write-FormatView -TypeName Emoji.Symbol -Property Emoji -AlignProperty @{
     Emoji = 'Left'
 } -AutoSize -Name Emoji
 
+Write-FormatView -TypeName Emoji.Symbol -Property CSS -AlignProperty @{
+    CSS = 'Left'
+} -AutoSize -Name CSS
+
 Write-FormatView -TypeName Emoji.Symbol -Action {
     Write-FormatViewExpression -ScriptBlock {
         $_.Emoji.PadRight(4)
@@ -45,3 +49,13 @@ Write-FormatView -TypeName Emoji.Symbol -Action {
 
     Write-FormatViewExpression -Property Name -Style Foreground.Green
 } -Name PowerShell
+
+Write-FormatView -TypeName Emoji.Symbol -Action {
+    Write-FormatViewExpression -ScriptBlock {
+        $_.Emoji.PadRight(4)
+    }
+
+    Write-FormatViewExpression -Property CSS -Style Foreground.Cyan
+
+    Write-FormatViewExpression -Property Name -Style Foreground.Green
+} -Name CSS
