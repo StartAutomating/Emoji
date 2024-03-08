@@ -1,3 +1,11 @@
+## Emoji 0.1.4:
+
+* Emoji.Symbol.CSS (#58)
+* ... and new views (#60)
+* Also making color more tolerant of strict mode (#59)
+
+---
+
 ## Emoji 0.1.3:
 
 * Improved Formatting
