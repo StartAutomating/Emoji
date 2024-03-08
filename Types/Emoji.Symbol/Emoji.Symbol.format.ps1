@@ -53,12 +53,10 @@ Write-FormatView -TypeName Emoji.Symbol -Action {
 Write-FormatView -TypeName Emoji.Symbol -Action {
     Write-FormatViewExpression -Text "/*"
     Write-FormatViewExpression -ScriptBlock {
-        $_.Emoji.PadRight(4)
+        $_.Emoji.PadRight(3)
     }
 
     Write-FormatViewExpression -Text "*/"
-    
     Write-FormatViewExpression -Newline
-
-    Write-FormatViewExpression -Property CSS -Style Foreground.Cyan
+    Write-FormatViewExpression -Property CSS
 } -Name CSS
