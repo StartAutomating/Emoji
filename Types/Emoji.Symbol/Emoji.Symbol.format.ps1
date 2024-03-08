@@ -51,11 +51,14 @@ Write-FormatView -TypeName Emoji.Symbol -Action {
 } -Name PowerShell
 
 Write-FormatView -TypeName Emoji.Symbol -Action {
+    Write-FormatViewExpression -Text "/*"
     Write-FormatViewExpression -ScriptBlock {
         $_.Emoji.PadRight(4)
     }
 
-    Write-FormatViewExpression -Property CSS -Style Foreground.Cyan
+    Write-FormatViewExpression -Text "*/"
+    
+    Write-FormatViewExpression -Newline
 
-    Write-FormatViewExpression -Property Name -Style Foreground.Green
+    Write-FormatViewExpression -Property CSS -Style Foreground.Cyan
 } -Name CSS
