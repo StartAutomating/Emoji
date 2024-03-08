@@ -1,5 +1,5 @@
 @{
-    ModuleVersion = '0.1.3'
+    ModuleVersion = '0.1.4'
     RootModule = 'Emoji.psm1'
     
     Description = '⟩⚡PowerShell Emoji 😎😉😍🥰🤔😟'
@@ -18,30 +18,17 @@
             LicenseURI = 'https://github.com/StartAutomating/blob/main/LICENSE'
             Tags = 'Emoji', 'PowerShell'
             ReleaseNotes = @'
-## Emoji 0.1.3:
+## Emoji 0.1.4:
 
-* Improved Formatting
-    * Now with Color (and better padding) (#46)
-    * Adding Custom formats (#47)
-    * Adding PowerShell formats (#49)
-* Emoji Sequences:
-    * Get-Emoji -Sequence (#55)
-    * Emoji.Sequences.All (#41)
-    * Emoji.Sequences.Add (#39)
-    * Emoji.Sequences.Remove (#40)
-    * Emoji.get/set Sequence (#35)
-    * Sequence Formatting (#54)
-* Added `Emoji.get_Demos` (#42)
-* Added `/Demos/Emoji.demo.ps1` (#43)
-* Set-Emoji
-    * Added -ScriptBlock (#51)
-    * Defaulting Value (#52)
+* Emoji.Symbol.CSS (#58)
+* ... and new views (#60)
+* Also making color more tolerant of strict mode (#59)
 
 ---
 
 Full history in [CHANGELOG](https://github.com/StartAutomating/Emoji/blob/main/CHANGELOG.md)
 
-Like it?  Star It!  Love it?  Support It!
+Like it?  [Star It](https://github.com/StartAutomating/Emoji)!  Love it?  [Support It!](https://github.com/sponsors/StartAutomating)
 '@
         }
         Recommends = 'Posh','PipeScript','EZOut'
