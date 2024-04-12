@@ -615,10 +615,12 @@ $className = $this.Name.ToLower() -replace '\s','-'
     Gets an Emoji as HTML 
 .DESCRIPTION
     Gets an Emoji as an HTML span
+.EXAMPLE
+    (Get-Emoji -Name 'Grinning Face').HTML
 #&gt;
 param()
 
-"&lt;span&gt;$([Web.HttpUtility]::htmlencode($this.Emoji))&lt;/span&gt;"
+"&lt;span&gt;$([Web.HttpUtility]::HtmlEncode($this.Emoji))&lt;/span&gt;"
 
                     </GetScriptBlock>
       </ScriptProperty>
