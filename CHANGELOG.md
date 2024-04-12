@@ -1,3 +1,11 @@
+## Emoji 0.1.5:
+
+* Emoji.Symbol.HTML (#66)
+* ... and new views (#62)
+* Emoji Docker Support (#63, #64, #65)
+
+---
+
 ## Emoji 0.1.4:
 
 * Emoji.Symbol.CSS (#58)
