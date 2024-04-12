@@ -305,12 +305,58 @@
         <AutoSize />
         <TableHeaders>
           <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
             <Alignment>Left</Alignment>
           </TableColumnHeader>
         </TableHeaders>
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Emoji</PropertyName>
+              </TableColumnItem>
+              <!-- {ConditionalStyle:"Foreground.Green"}-->
+              <TableColumnItem>
+                <ScriptBlock>                        
+                        $CellColorValue = $($Script:_LastCellStyle ='Foreground.Green';$Script:_LastCellStyle)
+                        
+                            $CellColorValue = if ($psStyle) {
+                                @(foreach ($styleProp in $CellColorValue) {
+                                    if ($styleProp -match '^\$') {
+                                        $ExecutionContext.SessionState.InvokeCommand.InvokeScript($styleProp)
+                                    }
+                                    elseif ($styleProp -match '\.') {
+                                        $targetObject = $psStyle
+                                        foreach ($dotProperty in $styleProp -split '(?&lt;!\.)\.') {
+                                            if (
+                                                ($targetObject.psobject.Members['Item'] -and 
+                                                    ($targetObject.Item -is [Management.Automation.PSMethodInfo])
+                                                ) -or 
+                                                $targetObject -is [Collections.IDictionary]
+                                            ) {
+                                                $targetObject = $targetObject[$dotProperty]
+                                            } else {
+                                                $targetObject = $targetObject.$dotProperty
+                                            }
+                                        }
+                                        if ($targetObject) {
+                                            $targetObject
+                                        }
+                                    }
+                                    else {
+                                        $psStyle.$styleProp
+                                    }
+                                }) -join ''
+                            }
+                                                    
+                        $output = . {$_.'Name'}
+                        @($CellColorValue; $output; $psStyle.Reset) -join ''
+                        </ScriptBlock>
+              </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>HTML</PropertyName>
               </TableColumnItem>
@@ -534,14 +580,6 @@
         <CustomEntries>
           <CustomEntry>
             <CustomItem>
-              <Text>&lt;!-- </Text>
-              <ExpressionBinding>
-                <ScriptBlock>
-        $_.Emoji.PadRight(3)
-    </ScriptBlock>
-              </ExpressionBinding>
-              <Text>--&gt;</Text>
-              <NewLine />
               <ExpressionBinding>
                 <PropertyName>HTML</PropertyName>
               </ExpressionBinding>
