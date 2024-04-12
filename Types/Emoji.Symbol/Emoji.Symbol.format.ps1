@@ -28,6 +28,10 @@ Write-FormatView -TypeName Emoji.Symbol -Property CSS -AlignProperty @{
     CSS = 'Left'
 } -AutoSize -Name CSS
 
+Write-FormatView -TypeName Emoji.Symbol -Property HTML -AlignProperty @{
+    Html = 'Left'
+} -AutoSize -Name Html
+
 Write-FormatView -TypeName Emoji.Symbol -Action {
     Write-FormatViewExpression -ScriptBlock {
         $_.Emoji.PadRight(4)
@@ -60,3 +64,14 @@ Write-FormatView -TypeName Emoji.Symbol -Action {
     Write-FormatViewExpression -Newline
     Write-FormatViewExpression -Property CSS
 } -Name CSS
+
+Write-FormatView -TypeName Emoji.Symbol -Action {
+    Write-FormatViewExpression -Text "<!-- "
+    Write-FormatViewExpression -ScriptBlock {
+        $_.Emoji.PadRight(3)
+    }
+
+    Write-FormatViewExpression -Text "-->"
+    Write-FormatViewExpression -Newline
+    Write-FormatViewExpression -Property HTML
+} -Name HTML
