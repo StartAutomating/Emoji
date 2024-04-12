@@ -1,3 +1,13 @@
+<div align='center'>
+<img src='Assets/Emoji.png' alt='emoji' />
+<a href='https://www.powershellgallery.com/packages/emoji/'>
+<img src='https://img.shields.io/powershellgallery/dt/emoji' />
+</a>
+<br/>
+<a href='https://github.com/sponsors/StartAutomating'>❤️</a>
+<a href='https://github.com/StartAutomating/emoji/stargazers'>⭐</a>
+</div>
+
 # Emoji
 ⟩⚡PowerShell Emoji 😎😉😍🥰🤔😟
 
