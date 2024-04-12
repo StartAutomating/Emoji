@@ -618,7 +618,7 @@ $className = $this.Name.ToLower() -replace '\s','-'
 #&gt;
 param()
 
-"&lt;span&gt;$($this.Emoji)&lt;/span&gt;"
+"&lt;span&gt;$([Web.HttpUtility]::htmlencode($this.Emoji))&lt;/span&gt;"
 
                     </GetScriptBlock>
       </ScriptProperty>
