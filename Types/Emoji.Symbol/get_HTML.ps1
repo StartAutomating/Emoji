@@ -6,4 +6,4 @@
 #>
 param()
 
-"<span>$($this.Emoji)</span>"
+"<span>$([Web.HttpUtility]::htmlencode($this.Emoji))</span>"
