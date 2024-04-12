@@ -297,6 +297,29 @@
       </TableControl>
     </View>
     <View>
+      <Name>Html</Name>
+      <ViewSelectedBy>
+        <TypeName>Emoji.Symbol</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Alignment>Left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>HTML</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
       <Name>Emoji.Symbol</Name>
       <ViewSelectedBy>
         <TypeName>Emoji.Symbol</TypeName>
@@ -496,6 +519,31 @@
               <NewLine />
               <ExpressionBinding>
                 <PropertyName>CSS</PropertyName>
+              </ExpressionBinding>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </View>
+    <View>
+      <Name>HTML</Name>
+      <ViewSelectedBy>
+        <TypeName>Emoji.Symbol</TypeName>
+      </ViewSelectedBy>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <Text>&lt;!-- </Text>
+              <ExpressionBinding>
+                <ScriptBlock>
+        $_.Emoji.PadRight(3)
+    </ScriptBlock>
+              </ExpressionBinding>
+              <Text>--&gt;</Text>
+              <NewLine />
+              <ExpressionBinding>
+                <PropertyName>HTML</PropertyName>
               </ExpressionBinding>
             </CustomItem>
           </CustomEntry>
