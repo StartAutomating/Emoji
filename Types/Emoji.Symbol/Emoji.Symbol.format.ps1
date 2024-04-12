@@ -28,9 +28,11 @@ Write-FormatView -TypeName Emoji.Symbol -Property CSS -AlignProperty @{
     CSS = 'Left'
 } -AutoSize -Name CSS
 
-Write-FormatView -TypeName Emoji.Symbol -Property HTML -AlignProperty @{
+Write-FormatView -TypeName Emoji.Symbol -Property Emoji, Name, HTML -AlignProperty @{
     Html = 'Left'
-} -AutoSize -Name Html
+} -AutoSize -Name Html -StyleProperty @{
+    Name = 'Foreground.Green'
+}
 
 Write-FormatView -TypeName Emoji.Symbol -Action {
     Write-FormatViewExpression -ScriptBlock {
@@ -66,12 +68,5 @@ Write-FormatView -TypeName Emoji.Symbol -Action {
 } -Name CSS
 
 Write-FormatView -TypeName Emoji.Symbol -Action {
-    Write-FormatViewExpression -Text "<!-- "
-    Write-FormatViewExpression -ScriptBlock {
-        $_.Emoji.PadRight(3)
-    }
-
-    Write-FormatViewExpression -Text "-->"
-    Write-FormatViewExpression -Newline
     Write-FormatViewExpression -Property HTML
 } -Name HTML
