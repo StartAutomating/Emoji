@@ -608,6 +608,21 @@ $className = $this.Name.ToLower() -replace '\s','-'
                     </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
+        <Name>HTML</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Gets an Emoji as HTML 
+.DESCRIPTION
+    Gets an Emoji as an HTML span
+#&gt;
+param()
+
+"&lt;span&gt;$($this.Emoji)&lt;/span&gt;"
+
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
         <Name>Number</Name>
         <GetScriptBlock>
                         &lt;#
