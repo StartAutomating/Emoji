@@ -8,6 +8,9 @@ New-GitHubWorkflow -Name "Build Emoji" -On Push,
     PullRequest, 
     Demand -Job PowerShellStaticAnalysis, 
     TestPowerShellOnLinux, 
-    TagReleaseAndPublish, BuildEmoji -OutputPath .\.github\workflows\BuildEmoji.yml
+    TagReleaseAndPublish, BuildEmoji  -Environment ([Ordered]@{
+        REGISTRY = 'ghcr.io'
+        IMAGE_NAME = '${{ github.repository }}'
+    }) -OutputPath .\.github\workflows\BuildEmoji.yml
 
 Pop-Location

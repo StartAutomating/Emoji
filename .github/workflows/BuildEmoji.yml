@@ -624,4 +624,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
+env: 
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
