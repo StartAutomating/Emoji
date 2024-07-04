@@ -69,7 +69,7 @@ if (-not $Server -and $this.Serve.Script) {
     $server = $this.Serve.Script
 }
 
-if (-not $server) { Write-Error "No server script provided." ; return }
+if (-not $server) { throw "No server script provided." ; return }
 
 # Start the node, passing the current script block and the Emoji module
 return @(Start-PSNode -Server $serveUrl -Command $Server -ImportModule $this,"Emoji" -Name "$this") -ne $null
