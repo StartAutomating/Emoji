@@ -4,6 +4,11 @@ if (-not $psNode) {
     @{serving=$($psNode.Location)} | ConvertTo-Json -Compress | Write-Information    
 }
 
+if (-not $psNode) {
+    Write-Error "No node was started."
+    return
+}
+
 # Wait for the node to finish
 # (If this is running in a headless web server, it should never finish)
 do {
