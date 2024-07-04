@@ -300,7 +300,14 @@ $SelectParameters = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
       <ScriptMethod>
         <Name>Serve</Name>
         <Script>
-                        param($Request)
+                        if (-not $request) { return $this.404 }
+if (-not $this) { 
+    $this = 
+        if ($emoji -is [Management.Automation.PSModuleInfo]) { $emoji }        
+        else {
+            Get-Module Emoji
+        }
+}
 
 $Query = [Ordered]@{}
 if ($Request.Url.Query) {
