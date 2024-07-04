@@ -329,7 +329,7 @@ if ($Request.Url.Segments.Count -eq 0) {
         return
     }
     $this.'.RequestCache'[$Request.Url.LocalPath] = @(
-        foreach ($segment in $request.Url.Segments -replace '^/') {
+        foreach ($segment in $request.Url.Segments -replace '^/' -replace '\?.+$' -ne '') {
             $foundEmoji = Get-Emoji -Name $segment
             if ($foundEmoji) {
                 $foundEmoji
@@ -358,7 +358,23 @@ if ($Request.Url.Segments.Count -eq 0) {
     if (-not $hasSomething) {
         return $this.404
     } else {
-        return $this.'.RequestCache'[$Request.Url.LocalPath]
+        if ($response) {
+            $response.ContentType = "text/html"
+            $responseMessage = $outputEncoding.GetBytes(@"
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;title&gt;$([Web.HttpUtility]::htmlEncode($Request.Url))&lt;/title&gt;
+    &lt;style&gt;body { font-size: 2em }&lt;/style&gt;
+    &lt;body&gt;
+        $($this.'.RequestCache'[$Request.Url.LocalPath].Html -join '&lt;br/&gt;')
+    &lt;/body&gt;
+&lt;/html&gt;
+"@)
+            $response.OutputStream.Write($responseMessage, 0, $responseMessage.Length)         
+        }
+        
+
+        return 
     }        
 }
 
