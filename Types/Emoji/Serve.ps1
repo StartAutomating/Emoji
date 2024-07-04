@@ -1,10 +1,8 @@
 if (-not $request) { return $this.404 }
 if (-not $this) { 
     $this = 
-        if ($emoji -is [Management.Automation.PSModuleInfo]) { $emoji }        
-        else {
-            Get-Module Emoji
-        }
+        if ($emoji -is [Management.Automation.PSModuleInfo]) { $emoji }
+        else { Get-Module Emoji }
 }
 
 $Query = [Ordered]@{}
@@ -35,7 +33,11 @@ if ($Request.Url.Segments.Count -eq 0) {
                 $foundEmoji
                 continue
             }
-            $foundBlock = Get-Emoji -BlockName $segment
+            $foundBlock = 
+                try { 
+                    Get-Emoji -BlockName $segment
+                } catch { $null }
+
             if ($foundBlock) {
                 $foundBlock | Get-Emoji
                 continue
