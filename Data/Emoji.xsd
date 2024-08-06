@@ -1,0 +1,38 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="Emoji" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="Emoji" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Block">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Symbol" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="Number" type="xs:int" use="required" />
+                  <xs:attribute name="Name" type="xs:string" />
+                  <xs:attribute name="String" type="xs:string" />
+                  <xs:attribute name="BlockName" type="xs:string" use="prohibited" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="BlockName" type="xs:string" use="required" />
+            <xs:attribute name="RangeStart" type="xs:int" />
+            <xs:attribute name="RangeEnd" type="xs:int" />
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//Symbol" />
+      <xs:field xpath="@Number" />
+    </xs:unique>
+    <xs:unique name="Block" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//Block" />
+      <xs:field xpath="@BlockName" />
+    </xs:unique>
+    <xs:keyref name="Symbol" refer="Block" msdata:IsNested="true">
+      <xs:selector xpath=".//Symbol" />
+      <xs:field xpath="@BlockName" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>
