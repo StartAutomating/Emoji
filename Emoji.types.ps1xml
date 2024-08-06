@@ -221,25 +221,24 @@ if (-not $this) {
     $this = Get-Module Emoji
 }
 if ((-not $this.'.EmojiCache') -or $Force) {
-    if (-not $EmojiPath) {
-        $EmojiPath = $this | 
+    if (-not $DataPath) {
+        $DataPath = $this | 
             Split-Path | 
-            Join-Path -ChildPath Data | 
-            Join-Path -ChildPath "AllNamedEmoji.csv"
+            Join-Path -ChildPath Data
     }
-    if (Test-Path $EmojiPath) {
-        $impoterNoun = @($EmojiPath -split '[\\/]')[-1] -replace '.+\.'
-        $importers = $ExecutionContext.SessionState.InvokeCommand.GetCommands("Import-$impoterNoun", 'Function,Cmdlet,Alias', $true)
-        if ($importers -and $importers.Count -eq 1) {
-            $importedEmojiList = &amp; $importers $EmojiPath
-            if ($importedEmojiList.Length -gt 1 -and $importedEmojiList[0].Hex -match '[0-9a-f]{4,}') {                                
-                Add-Member -InputObject $this -MemberType NoteProperty -Force -Name ".EmojiCache" -Value @(foreach ($importedEmoji in $importedEmojiList) {
-                    $importedEmoji.pstypenames.insert(0,'Emoji.Symbol')
-                    $importedEmoji
-                })
-            }
-        }
-    }
+    $emojiXsd = Join-Path $DataPath "Emoji.xsd"
+    $emojiXml = Join-Path $DataPath "Emoji.xml"
+    $emojiDataSet = [Data.DataSet]::new('Emoji')
+    $null = $emojiDataSet.ReadXmlSchema($emojiXsd)
+    $null = $emojiDataSet.ReadXml($emojiXml)        
+    Add-Member -InputObject $this -MemberType NoteProperty -Force -Name ".EmojiCache" -Value @(foreach ($importedEmoji in $emojiDataSet.Tables['Symbol'].Rows) {
+        $importedEmoji.pstypenames.insert(0,'Emoji.Symbol')
+        $importedEmoji
+    })
+    Add-Member -InputObject $this -MemberType NoteProperty -Force -Name ".Blocks" -Value @(foreach ($importedBlock in $emojiDataSet.Tables['Block'].Rows) {
+        $importedBlock.pstypenames.insert(0,'Emoji.Block')
+        $importedBlock
+    })
 }
 $this.'.EmojiCache'
                     </Script>
