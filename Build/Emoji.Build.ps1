@@ -23,26 +23,35 @@ if (-not (Test-path $UCDZipPath)) {
 $parentPath = $pwd | Split-Path
 $DataPath = Join-Path $parentPath "Data"
 
+# Create a new DataSet
 $emojiDataSet = [Data.DataSet]::new('Emoji')
+# Create a table for blocks
 $blockTable = $emojiDataSet.Tables.Add('Block')
+# Add columns to the block table
 $blockTable.Columns.AddRange(@(
     [Data.DataColumn]::new('BlockName', [string], '','Attribute')
     [Data.DataColumn]::new('RangeStart', [int], '','Attribute')
     [Data.DataColumn]::new('RangeEnd', [int], '','Attribute')
 ))
+# Block names are unique.
 $blockTable.PrimaryKey = $blockTable.Columns['BlockName']
+# Create a table for symbols
 $symbolTable = $emojiDataSet.Tables.Add('Symbol')
+# Add columns to the symbol table
 $symbolTable.Columns.AddRange(@(
     [Data.DataColumn]::new('Number', [int], '','Attribute')
     [Data.DataColumn]::new('Name', [string], '','Attribute')    
     [Data.DataColumn]::new('String', [string], '','Attribute')
+    # The block name is hidden, because it will be inferred from nesting.
     [Data.DataColumn]::new('BlockName', [string], '','Hidden')
 ))
-$symbolTable.PrimaryKey = $symbolTable.Columns['Hex']
+# The primary key of the symbol table is the number.
+$symbolTable.PrimaryKey = $symbolTable.Columns['Number']
+# Create a relation between blocks and symbols
 $symbolsNestedInBlocks = $emojiDataSet.Relations.Add('Symbol', $emojiDataSet.Tables['Block'].Columns['BlockName'], $symbolTable.Columns['BlockName'])
+# The relation is nested (this will make the XML nest).
 $symbolsNestedInBlocks.Nested = $true
 $symbolsNestedInBlocks.ParentKeyConstraint[0].ConstraintName = 'Block'
-
 
 if (-not (Test-Path $DataPath)) {
     New-Item -ItemType Directory -Path $DataPath -Force | Out-Null
