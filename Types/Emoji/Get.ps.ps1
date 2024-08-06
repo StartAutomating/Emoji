@@ -67,7 +67,7 @@ if (-not $this) {
 
 if ($BlockName) {
     foreach ($nameOfBlock in $BlockName) {
-        $blockRange = $this.Blocks[$nameOfBlock].Range
+        $blockRange = $this.Blocks.Rows.Find($nameOfBlock).Range
         if ($blockRange) {
             $number += $blockRange
         }        
@@ -99,7 +99,7 @@ if ($name -or $number) {
 } 
 elseif ($Block) {
     if ($selectSplat.Count) {
-        $emoji.Blocks.Values | Select-Object @selectSplat
+        $emoji.Blocks.Row | Select-Object @selectSplat
     } else {
         $emoji.Blocks.Values
     }    
