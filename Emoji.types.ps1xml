@@ -678,6 +678,28 @@ param()
     </Members>
   </Type>
   <Type>
+    <Name>Emoji.Database</Name>
+    <Members>
+      <AliasProperty>
+        <Name>Symbols</Name>
+        <ReferencedMemberName>Symbol</ReferencedMemberName>
+      </AliasProperty>
+      <ScriptProperty>
+        <Name>Symbol</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Gets the Emoji Symbol table
+.DESCRIPTION
+    Gets the Symbol table from the Emoji database
+#&gt;
+param()
+return $this.Tables['Symbol']
+                    </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
     <Name>Emoji.Sequence</Name>
     <Members>
     </Members>
