@@ -848,6 +848,19 @@ $className = $this.Name.ToLower() -replace '\s','-'
                     </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
+        <Name>Hex</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Gets an Emoji Symbol's hex value.
+.DESCRIPTION
+    Gets the Hexadecimal representation of the Emoji Symbol
+#&gt;
+param()
+"{0:x}" -f $this.Number
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
         <Name>HTML</Name>
         <GetScriptBlock>
                         &lt;#
@@ -865,19 +878,6 @@ param()
                     </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
-        <Name>Number</Name>
-        <GetScriptBlock>
-                        &lt;#
-.SYNOPSIS
-    Gets the Emoji Number
-.DESCRIPTION
-    Gets the Emoji's number, as an integer.
-#&gt;
-"0x$($this.Hex)" -as [int]
-
-                    </GetScriptBlock>
-      </ScriptProperty>
-      <ScriptProperty>
         <Name>PowerShell</Name>
         <GetScriptBlock>
                         &lt;#
@@ -889,7 +889,7 @@ param()
     These strings will only work on PowerShell Core.
 #&gt;
 param()
-'"`u{' + $this.Hex + '}"'
+'"`u{' + ("{0:x}" -f $this.Number) + '}"'
                     </GetScriptBlock>
       </ScriptProperty>
     </Members>
