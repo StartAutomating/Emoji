@@ -5,4 +5,4 @@
     Gets the Block table from the Emoji database
 #>
 param()
-return $this.Tables['Block']
+return ,$this.Tables['Block']
