@@ -674,7 +674,7 @@ param()
     Gets the Block table from the Emoji database
 #&gt;
 param()
-return $this.Tables['Block']
+return ,$this.Tables['Block']
                     </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
@@ -700,7 +700,7 @@ return $this.Tables['Block'].Rows.Count
     Gets the Symbol table from the Emoji database
 #&gt;
 param()
-return $this.Tables['Symbol']
+return ,$this.Tables['Symbol']
                     </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
