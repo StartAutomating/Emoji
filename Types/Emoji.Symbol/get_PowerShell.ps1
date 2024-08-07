@@ -7,4 +7,4 @@
     These strings will only work on PowerShell Core.
 #>
 param()
-'"`u{' + $this.Hex + '}"'
+'"`u{' + ("{0:x}" -f $this.Number) + '}"'
