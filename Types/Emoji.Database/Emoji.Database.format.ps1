@@ -1,0 +1,1 @@
+Write-FormatView -TypeName Emoji.Database -Property SymbolCount, BlockCount
