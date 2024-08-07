@@ -47,13 +47,7 @@ $Sequence,
 # One or more block names
 [vbn()]
 [ValidValues(Values={
-    $pwd |
-        Split-Path | 
-        Split-Path | 
-        Join-Path -ChildPath "Data" | 
-        Join-Path -ChildPath "AllEmojiBlocks.csv" | 
-        Import-Csv | 
-        Select-Object -ExpandProperty BlockName
+    $emoji.Blocks.Rows.BlockName
 })]
 [string[]]
 $BlockName
@@ -82,11 +76,11 @@ if ($Name) {
             $allSelectedEmoji = Search-Emoji -Pattern $name
         }
     } else {
-        $allSelectedEmoji = $allSelectedEmoji | Where-Object Name -In $Name
+        $allSelectedEmoji = $this.DB.Symbol.Select("Name IN ('$($Name -join "','")')")
     }    
 }
 if ($Number) {
-    $allSelectedEmoji = $allSelectedEmoji | Where-Object Number -In $Number
+    $allSelectedEmoji = $this.DB.Symbol.Select("Number IN ($($Number -join ","))")
 }
 
 $selectSplat = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
@@ -99,9 +93,9 @@ if ($name -or $number) {
 } 
 elseif ($Block) {
     if ($selectSplat.Count) {
-        $emoji.Blocks.Row | Select-Object @selectSplat
+        $emoji.Blocks.Rows | Select-Object @selectSplat
     } else {
-        $emoji.Blocks.Values
+        $emoji.Blocks.Rows
     }    
 }
 elseif ($Sequence) {
