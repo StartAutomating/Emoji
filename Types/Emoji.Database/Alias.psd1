@@ -1,3 +1,4 @@
 @{
     Symbols = 'Symbol'
+    Blocks = 'Block'
 }
