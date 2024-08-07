@@ -831,6 +831,10 @@ foreach ($property in $this.psobject.properties) {
         <Name>Emoji</Name>
         <ReferencedMemberName>String</ReferencedMemberName>
       </AliasProperty>
+      <AliasProperty>
+        <Name>HexCode</Name>
+        <ReferencedMemberName>Hex</ReferencedMemberName>
+      </AliasProperty>
       <ScriptProperty>
         <Name>CSS</Name>
         <GetScriptBlock>
