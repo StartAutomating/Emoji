@@ -37,6 +37,32 @@
       </TableControl>
     </View>
     <View>
+      <Name>Emoji.Database</Name>
+      <ViewSelectedBy>
+        <TypeName>Emoji.Database</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>SymbolCount</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>BlockCount</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
       <Name>Emoji.Sequence</Name>
       <ViewSelectedBy>
         <TypeName>Emoji.Sequence</TypeName>
