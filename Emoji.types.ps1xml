@@ -702,6 +702,19 @@ return $this.Tables['Block']
                     </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
+        <Name>BlockCount</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Gets the count of Emoji Blocks
+.DESCRIPTION
+    Gets the number of Emoji Blocks in the database
+#&gt;
+param()
+return $this.Tables['Block'].Rows.Count
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
         <Name>Symbol</Name>
         <GetScriptBlock>
                         &lt;#
