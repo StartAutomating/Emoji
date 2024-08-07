@@ -1,3 +1,4 @@
 @{
     Emoji = 'String'
+    HexCode = 'Hex'
 }
