@@ -46,8 +46,14 @@ $Sequence,
 
 # One or more block names
 [vbn()]
-[ValidValues(Values={
-    $emoji.Blocks.Rows.BlockName
+[ValidValues(Values={    
+    $pwd |
+        Split-Path | 
+        Split-Path | 
+        Join-Path -ChildPath "Data" | 
+        Join-Path -ChildPath "AllEmojiBlocks.csv" | 
+        Import-Csv | 
+        Select-Object -ExpandProperty BlockName
 })]
 [string[]]
 $BlockName
