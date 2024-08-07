@@ -21,6 +21,6 @@ if (-not $this) {
     $this = Get-Module Emoji
 }
 if ((-not $this.'.EmojiCache') -or $Force) {
-    Add-Member -InputObject $this -MemberType NoteProperty -Force -Name ".EmojiCache" -Value $this.DB.Tables['Symbol']    
+    Add-Member -InputObject $this -MemberType NoteProperty -Force -Name ".EmojiCache" -Value (,$this.DB.Tables['Symbol'])
 }
 $this.'.EmojiCache'
