@@ -714,6 +714,19 @@ param()
 return $this.Tables['Symbol']
                     </GetScriptBlock>
       </ScriptProperty>
+      <ScriptProperty>
+        <Name>SymbolCount</Name>
+        <GetScriptBlock>
+                        &lt;#
+.SYNOPSIS
+    Gets the count of Emoji Symbols
+.DESCRIPTION
+    Gets the number of Emoji Symbols in the database
+#&gt;
+param()
+return $this.Tables['Symbol'].Rows.Count
+                    </GetScriptBlock>
+      </ScriptProperty>
     </Members>
   </Type>
   <Type>
