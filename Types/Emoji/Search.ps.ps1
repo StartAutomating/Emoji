@@ -34,13 +34,23 @@ if ($word) {
 $SelectParameters = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
 
 @(foreach ($condition in $Pattern) {
-    foreach ($namedEmoji in $this.Import()) {
-        if ($like) {            
-            if ($namedEmoji.Name -like $condition) {
+    $starCount = @([Regex]::matches('\*', $condition)).Length
+    $punctuation = @([Regex]::matches('\p{P}', $condition))
+    if (($like -or -not $punctuation) -and $starCount -eq 0) {
+        $condition = "*$condition*"
+        $like = $true
+    }
+    if ($like -and $starCount -le 2) {
+        $emoji.DB.Symbol.Select("Name LIKE '$condition'")
+    } else {
+        foreach ($namedEmoji in $this.Import()) {
+            if ($like) {                
+                if ($namedEmoji.Name -like $condition) {
+                    $namedEmoji
+                }
+            } elseif ($namedEmoji.Name -match $condition) {
                 $namedEmoji
             }
-        } elseif ($namedEmoji.Name -match $condition) {
-            $namedEmoji
         }
-    }    
+    }        
 }) | Select-Object @SelectParameters
