@@ -18,7 +18,7 @@ if (-not $this.'.RequestCache') {
 }
 
 if ($Request.Url.Segments.Count -eq 0) {
-    
+
 
 } else {
     
@@ -27,7 +27,8 @@ if ($Request.Url.Segments.Count -eq 0) {
         return
     }
     $this.'.RequestCache'[$Request.Url.LocalPath] = @(
-        foreach ($segment in $request.Url.Segments -replace '^/' -replace '\?.+$' -ne '') {
+        foreach ($segment in @($request.Url.Segments -replace '^/' -replace '\?.+$' -ne '')) {
+            $segment = [Web.HttpUtility]::urlDecode($segment)
             $foundEmoji = Get-Emoji -Name $segment
             if ($foundEmoji) {
                 $foundEmoji
@@ -51,9 +52,10 @@ if ($Request.Url.Segments.Count -eq 0) {
         }
     )
 
-    $hasSomething = $this.'.RequestCache'[$Request.Url.LocalPath].Length -gt 0
+    $hasSomething = $this.'.RequestCache'[$Request.Url.LocalPath]
 
-    if (-not $hasSomething) {
+    if ($hasSomething.Length -le 0) {
+        $response.ContentType = "text/plain"
         return $this.404
     } else {
         if ($response) {
@@ -62,9 +64,15 @@ if ($Request.Url.Segments.Count -eq 0) {
 <!DOCTYPE html>
 <html>
     <title>$([Web.HttpUtility]::htmlEncode($Request.Url))</title>
-    <style>body { font-size: 2em }</style>
+    <style>html, body { font-size: 2em; height:100% }</style>
     <body>
-        $($this.'.RequestCache'[$Request.Url.LocalPath].Html -join '<br/>')
+        <svg width="100%" height="100%" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+            <text x='50%' y='50%' fill='white' text-anchor='middle' alignment-baseline='middle'>$(
+                foreach ($somethingFound in $hasSomething) {
+                    $([Web.HttpUtility]::HtmlEncode($somethingFound.Emoji))
+                }                
+            )</text>
+        </svg>
     </body>
 </html>
 "@)
