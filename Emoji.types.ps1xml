@@ -575,6 +575,15 @@ $this |
                     </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>
+        <Name>DoNotServe</Name>
+        <GetScriptBlock>
+                        return @(
+    $this.ExportedCommands["Import-Emoji", "Export-Emoji", "Set-Emoji"]
+)
+
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
         <Name>Sequences</Name>
         <GetScriptBlock>
                         &lt;#
