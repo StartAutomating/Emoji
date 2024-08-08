@@ -23,12 +23,12 @@ if ($Request.Url.Segments.Count -eq 0) {
 } else {
     
     if ($this.'.RequestCache'.ContainsKey($Request.Url.LocalPath)) {
-        $this.'.RequestCache'[$Request.Url.LocalPath]
+        $this.'.RequestCache'["$($Request.Url.LocalPath)"]
         return
     }
-    $this.'.RequestCache'[$Request.Url.LocalPath] = @(
+    $this.'.RequestCache'["$($Request.Url.LocalPath)"] = @(
         foreach ($segment in @($request.Url.Segments -replace '^/' -replace '\?.+$' -ne '')) {
-            $segment = [Web.HttpUtility]::urlDecode($segment)
+            $segment = @([Web.HttpUtility]::urlDecode($segment) -split ',')
             $foundEmoji = Get-Emoji -Name $segment
             if ($foundEmoji) {
                 $foundEmoji
