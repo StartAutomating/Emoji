@@ -77,8 +77,6 @@ if ($InstallModules) {
 }
 # In our profile, push into the module's directory
 Add-Content -Path $Profile -Value "Get-Module $ModuleName | Split-Path | Push-Location" -Force
-# If we have a Microservice.ps1 file, run it
-Add-Content -Path $Profile -Value "if (Test-Path ./Microservice.ps1) { ./Microservice.ps1 }" -Force
 
 # Remove the .git directories from any modules
 Get-ChildItem -Path $rootModuleDirectory -Directory -Force -Recurse |
