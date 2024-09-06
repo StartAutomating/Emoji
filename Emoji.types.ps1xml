@@ -269,8 +269,8 @@ if ($word) {
 $SelectParameters = $Emoji.GetPagingParameters($PSCmdlet.PagingParameters)
 
 @(foreach ($condition in $Pattern) {
-    $starCount = @([Regex]::matches('\*', $condition)).Length
-    $punctuation = @([Regex]::matches('\p{P}', $condition))
+    $starCount = @([Regex]::matches($condition, '\*')).Length
+    $punctuation = @([Regex]::matches($condition,'\p{P}'))
     if (($like -or -not $punctuation) -and $starCount -eq 0) {
         $condition = "*$condition*"
         $like = $true
