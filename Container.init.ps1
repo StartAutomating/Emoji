@@ -28,7 +28,12 @@ param(
 # The name of the module to be installed.
 [string]$ModuleName = $(
     if ($env:ModuleName) { $env:ModuleName }
-    else { 'Emoji' }
+    else { 
+        (Get-ChildItem -Path $PSScriptRoot | 
+        Where-Object Extension -eq '.psd1' | 
+        Select-String 'ModuleVersion\s=' | 
+        Select-Object -ExpandProperty Path -First 1) -replace '\.psd1$'
+    }      
 ),
 # The packages to be installed.
 [string[]]$InstallPackages = @(

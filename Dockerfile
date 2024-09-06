@@ -1,6 +1,10 @@
 # Thank you Microsoft!  Thank you PowerShell!  Thank you Docker!
 FROM mcr.microsoft.com/powershell
 
+# Store the module name in an environment variable (this should not change)
+ENV ModuleName="Emoji"
+ARG InstallModules="PipeScript,PSSVG"
+
 # We set the shell to PowerShell,
 SHELL ["/bin/pwsh", "-nologo", "-command"]
 
