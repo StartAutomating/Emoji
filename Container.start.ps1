@@ -35,11 +35,11 @@ $mountedDrives = @(if (Test-Path '/proc/mounts') {
     (Select-String "\S+\s(?<p>\S+).+rw?,.+symlinkroot=/mnt/host" "/proc/mounts").Matches.Groups |
         Where-Object Name -eq p |
         Get-Item -path { $_.Value } | 
-        Mount-RoughDraft
+        New-PSDrive -Name { "Mount", $_.Name -join '.' } -PSProvider FileSystem -Root { $_.Value } -Scope Global -ErrorAction Ignore
 })
    
 if ($global:ContainerInfo.MountedPaths) {
-    "Mounted $($mountedDrives.Length) drives:" | Out-Host
+    "Mounted $($mountedPaths.Length) drives:" | Out-Host
     $mountedDrives | Out-Host
 }
 
