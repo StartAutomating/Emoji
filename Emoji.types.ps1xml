@@ -904,7 +904,7 @@ param()
 #&gt;
 param()
 
-"&lt;span&gt;$([Web.HttpUtility]::HtmlEncode($this.Emoji))&lt;/span&gt;"
+"&lt;span title=`"$([Web.HttpUtility]::HtmlAttributeEncode($this.Name))`"&gt;$([Web.HttpUtility]::HtmlEncode($this.Emoji))&lt;/span&gt;"
 
                     </GetScriptBlock>
       </ScriptProperty>
