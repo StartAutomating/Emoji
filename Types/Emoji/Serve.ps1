@@ -77,7 +77,8 @@ if ($Request.Url.Segments.Count -eq 0) {
                     "</body>"
                 ) -as [xml]
                 $xhtml.OuterXml
-            )</text>
+            )
+            </foreignObject>
         </svg>
     </body>
 </html>
