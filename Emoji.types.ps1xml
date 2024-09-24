@@ -364,10 +364,17 @@ if ($Request.Url.Segments.Count -eq 0) {
     &lt;style&gt;html, body { font-size: 2em; height:100% }&lt;/style&gt;
     &lt;body&gt;
         &lt;svg width="100%" height="100%" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"&gt;
-            &lt;text x='50%' y='50%' fill='white' text-anchor='middle' alignment-baseline='middle'&gt;$(
-                foreach ($somethingFound in $hasSomething) {
-                    $somethingFound.Html
-                }                
+            &lt;foreignObject width="100%" height="100%"&gt;                
+            $(
+                $xhtml = 
+                @(
+                    "&lt;body class='markdown-svg' xmlns='http://www.w3.org/1999/xhtml'&gt;"
+                    foreach ($somethingFound in $hasSomething) {
+                        $somethingFound.Html
+                    }
+                    "&lt;/body&gt;"
+                ) -as [xml]
+                $xhtml.OuterXml
             )&lt;/text&gt;
         &lt;/svg&gt;
     &lt;/body&gt;
