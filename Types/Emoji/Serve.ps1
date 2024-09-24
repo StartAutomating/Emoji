@@ -63,23 +63,13 @@ if ($Request.Url.Segments.Count -eq 0) {
 <!DOCTYPE html>
 <html>
     <title>$([Web.HttpUtility]::htmlEncode($Request.Url))</title>
-    <style>html, body { font-size: 2em; height:100% }</style>
+    <style>html, body { font-size: 2em; height:100%; vertical-align: middle }</style>
     <body>
-        <svg width="100%" height="100%" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
-            <foreignObject width="100%" height="100%">                
             $(
-                $xhtml = 
-                @(
-                    "<body class='markdown-svg' xmlns='http://www.w3.org/1999/xhtml'>"
-                    foreach ($somethingFound in $hasSomething) {
-                        $somethingFound.Html
-                    }
-                    "</body>"
-                ) -as [xml]
-                $xhtml.OuterXml
+                foreach ($somethingFound in $hasSomething) {
+                    $somethingFound.Html
+                }                
             )
-            </foreignObject>
-        </svg>
     </body>
 </html>
 "@)
