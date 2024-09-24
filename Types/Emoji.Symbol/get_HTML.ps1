@@ -8,4 +8,4 @@
 #>
 param()
 
-"<span>$([Web.HttpUtility]::HtmlEncode($this.Emoji))</span>"
+"<span title=`"$([Web.HttpUtility]::HtmlAttributeEncode($this.Name))`">$([Web.HttpUtility]::HtmlEncode($this.Emoji))</span>"
