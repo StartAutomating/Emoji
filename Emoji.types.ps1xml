@@ -375,7 +375,8 @@ if ($Request.Url.Segments.Count -eq 0) {
                     "&lt;/body&gt;"
                 ) -as [xml]
                 $xhtml.OuterXml
-            )&lt;/text&gt;
+            )
+            &lt;/foreignObject&gt;
         &lt;/svg&gt;
     &lt;/body&gt;
 &lt;/html&gt;
