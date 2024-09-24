@@ -19,7 +19,6 @@ if (-not $this.'.RequestCache') {
 
 if ($Request.Url.Segments.Count -eq 0) {
 
-
 } else {
     
     if ($this.'.RequestCache'.ContainsKey($Request.Url.LocalPath)) {
@@ -69,7 +68,7 @@ if ($Request.Url.Segments.Count -eq 0) {
         <svg width="100%" height="100%" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
             <text x='50%' y='50%' fill='white' text-anchor='middle' alignment-baseline='middle'>$(
                 foreach ($somethingFound in $hasSomething) {
-                    $([Web.HttpUtility]::HtmlEncode($somethingFound.Emoji))
+                    $somethingFound.Html
                 }                
             )</text>
         </svg>
