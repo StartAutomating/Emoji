@@ -66,10 +66,17 @@ if ($Request.Url.Segments.Count -eq 0) {
     <style>html, body { font-size: 2em; height:100% }</style>
     <body>
         <svg width="100%" height="100%" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
-            <text x='50%' y='50%' fill='white' text-anchor='middle' alignment-baseline='middle'>$(
-                foreach ($somethingFound in $hasSomething) {
-                    $somethingFound.Html
-                }                
+            <foreignObject width="100%" height="100%">                
+            $(
+                $xhtml = 
+                @(
+                    "<body class='markdown-svg' xmlns='http://www.w3.org/1999/xhtml'>"
+                    foreach ($somethingFound in $hasSomething) {
+                        $somethingFound.Html
+                    }
+                    "</body>"
+                ) -as [xml]
+                $xhtml.OuterXml
             )</text>
         </svg>
     </body>
