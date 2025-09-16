@@ -1,4 +1,4 @@
-<!-- Generated with EZOut 2.0.5: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
+<!-- Generated with EZOut 2.0.6: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
 <Types>
   <Type>
     <Name>Emoji</Name>
@@ -591,6 +591,12 @@ foreach ($property in $this.psobject.properties) {
         <Name>Emoji</Name>
         <ReferencedMemberName>String</ReferencedMemberName>
       </AliasProperty>
+      <ScriptMethod>
+        <Name>ToString</Name>
+        <Script>
+                        return "$($this.String)"
+                    </Script>
+      </ScriptMethod>
       <ScriptProperty>
         <Name>CSS</Name>
         <GetScriptBlock>
@@ -620,7 +626,7 @@ $className = $this.Name.ToLower() -replace '\s','-'
 #&gt;
 param()
 
-"&lt;span&gt;$([Web.HttpUtility]::HtmlEncode($this.Emoji))&lt;/span&gt;"
+"&lt;span class='$($this.Name -replace '\s','-')'&gt;$([Web.HttpUtility]::HtmlEncode($this.Emoji))&lt;/span&gt;"
 
                     </GetScriptBlock>
       </ScriptProperty>

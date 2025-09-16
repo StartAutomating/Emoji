@@ -1,5 +1,5 @@
 @{
-    ModuleVersion = '0.1.5'
+    ModuleVersion = '0.1.6'
     RootModule = 'Emoji.psm1'
     
     Description = '⟩⚡PowerShell Emoji 😎😉😍🥰🤔😟'
@@ -18,11 +18,11 @@
             LicenseURI = 'https://github.com/StartAutomating/blob/main/LICENSE'
             Tags = 'Emoji', 'PowerShell'
             ReleaseNotes = @'
-## Emoji 0.1.5:
+## Emoji 0.1.6:
 
-* Emoji.Symbol.HTML (#66)
-* ... and new views (#62)
-* Emoji Docker Support (#63, #64, #65)
+* `Emoji.Symbol.ToString()` (#93)
+* Workflow fix (#92)
+* `Emoji.Symbol.get_HTML` includes a class (#91)
 
 ---
 
