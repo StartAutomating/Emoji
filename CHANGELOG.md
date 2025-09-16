@@ -1,3 +1,11 @@
+## Emoji 0.1.6:
+
+* `Emoji.Symbol.ToString()` (#93)
+* Workflow fix (#92)
+* `Emoji.Symbol.get_HTML` includes a class (#91)
+
+---
+
 ## Emoji 0.1.5:
 
 * Emoji.Symbol.HTML (#66)
