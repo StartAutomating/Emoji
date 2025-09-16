@@ -591,6 +591,12 @@ foreach ($property in $this.psobject.properties) {
         <Name>Emoji</Name>
         <ReferencedMemberName>String</ReferencedMemberName>
       </AliasProperty>
+      <ScriptMethod>
+        <Name>ToString</Name>
+        <Script>
+                        return "$($this.String)"
+                    </Script>
+      </ScriptMethod>
       <ScriptProperty>
         <Name>CSS</Name>
         <GetScriptBlock>
